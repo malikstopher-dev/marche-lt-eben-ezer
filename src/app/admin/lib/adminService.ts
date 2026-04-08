@@ -89,6 +89,8 @@ export interface StoreSettings {
     facebook?: string;
     instagram?: string;
   };
+  departmentImages: Record<string, string>;
+  heroBanners: string[];
 }
 
 const defaultSettings: StoreSettings = {
@@ -118,6 +120,27 @@ const defaultSettings: StoreSettings = {
     facebook: "https://facebook.com/marchelt",
     instagram: "https://instagram.com/marchelt",
   },
+  departmentImages: {
+    "epicerie": "/product_images/food/001-farine-de-manioc-kinazi-1kg.jpg",
+    "surgeles": "/product_images/frozen-fish/090-raw-shrimp-16-20.jpg",
+    "boissons": "/product_images/drinks/001-jus-de-bissap-hibiscus-1l.jpg",
+    "legumes": "/product_images/fresh-vegetables/217-pondu.jpg",
+    "snacks": "/product_images/snacks/205-v-c-dig-thins-wild-fruits.jpg",
+    "cosmetiques": "/product_images/cosmetics/222-ever-sheen-cocoa-butter-hand-and-body-lotion.jpg",
+    "condiments": "/product_images/spices/120-hot-paprika.jpg",
+    "maison": "/product_images/household/211-old-dutch-bleach.jpg",
+  },
+  heroBanners: [
+    "/hero_banners/hero1.jpg",
+    "/hero_banners/store-in1.jpg",
+    "/hero_banners/store-in2.jpg",
+    "/hero_banners/store-in3.jpg",
+    "/hero_banners/store.jpg",
+    "/hero_banners/store1.jpg",
+    "/hero_banners/store3.jpg",
+    "/hero_banners/store4.jpg",
+    "/hero_banners/store5.jpg",
+  ],
 };
 
 export const defaultCategories: Category[] = [
@@ -315,7 +338,8 @@ class AdminService {
     if (typeof window === "undefined") return defaultSettings;
     const stored = localStorage.getItem(STORAGE_KEYS.settings);
     if (stored) {
-      return JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+      return { ...defaultSettings, ...parsed };
     }
     localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(defaultSettings));
     return defaultSettings;
@@ -352,4 +376,8 @@ export async function getStorefrontProducts(): Promise<Product[]> {
 
 export function getProductImage(product: Product | undefined | null): string {
   return product?.image || PLACEHOLDER_IMAGE;
+}
+
+export async function getStorefrontSettings(): Promise<StoreSettings> {
+  return adminService.getSettings();
 }

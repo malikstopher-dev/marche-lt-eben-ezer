@@ -237,6 +237,62 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      <div className="bg-white rounded-2xl border border-[#E8E4DD] p-6">
+        <h2 className="text-lg font-semibold text-[#1A1A1A] mb-4">Images des Départements</h2>
+        <p className="text-sm text-[#6B6B6B] mb-4">Modifiez les images affichées pour chaque département sur la page d'accueil</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {Object.entries(settings.departmentImages).map(([slug, image]) => (
+            <div key={slug} className="space-y-2">
+              <label className="block text-sm font-medium text-[#1A1A1A] capitalize">{slug}</label>
+              <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-[#E8E4DD]">
+                {image ? (
+                  <img src={image} alt={slug} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Pas d'image</div>
+                )}
+              </div>
+              <input
+                type="text"
+                value={image}
+                onChange={(e) => setSettings({ ...settings, departmentImages: { ...settings.departmentImages, [slug]: e.target.value } })}
+                placeholder="/product_images/..."
+                className="w-full px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-[#E8E4DD] p-6">
+        <h2 className="text-lg font-semibold text-[#1A1A1A] mb-4">Bannières Hero</h2>
+        <p className="text-sm text-[#6B6B6B] mb-4">Modifiez les images affichées dans le carrousel d'accueil</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {settings.heroBanners.map((banner, index) => (
+            <div key={index} className="space-y-2">
+              <label className="block text-sm font-medium text-[#1A1A1A]">Bannière {index + 1}</label>
+              <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 border border-[#E8E4DD]">
+                {banner ? (
+                  <img src={banner} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Pas d'image</div>
+                )}
+              </div>
+              <input
+                type="text"
+                value={banner}
+                onChange={(e) => {
+                  const newBanners = [...settings.heroBanners];
+                  newBanners[index] = e.target.value;
+                  setSettings({ ...settings, heroBanners: newBanners });
+                }}
+                placeholder="/hero_banners/..."
+                className="w-full px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
       <button
         onClick={handleSave}
         disabled={saving}

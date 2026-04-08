@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getProducts, getProductImage } from "@/lib/productService";
+import { getStorefrontSettings, StoreSettings } from "./admin/lib/adminService";
 
 interface Product {
   id: number;
@@ -25,7 +26,7 @@ interface Product {
   outOfStock?: boolean;
 }
 
-const heroBanners = [
+const defaultHeroBanners = [
   { src: "/hero_banners/hero1.jpg", alt: "Marché LT Eben-Ezer" },
   { src: "/hero_banners/store-in1.jpg", alt: "Notre store" },
   { src: "/hero_banners/store-in2.jpg", alt: "Produits africains" },
@@ -37,7 +38,7 @@ const heroBanners = [
   { src: "/hero_banners/store5.jpg", alt: "Boissons" },
 ];
 
-const departments = [
+const defaultDepartments = [
   { id: "Pantry Staples", name: "Épicerie", icon: "🫘", slug: "epicerie", image: "/product_images/food/001-farine-de-manioc-kinazi-1kg.jpg" },
   { id: "Frozen Foods", name: "Surgelés", icon: "🐟", slug: "surgeles", image: "/product_images/frozen-fish/090-raw-shrimp-16-20.jpg" },
   { id: "Beverages", name: "Boissons", icon: "🥤", slug: "boissons", image: "/product_images/drinks/001-jus-de-bissap-hibiscus-1l.jpg" },
@@ -58,6 +59,7 @@ const trustFeatures = [
 export default function HomepageContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [promoProducts, setPromoProducts] = useState<Product[]>([]);
+  const [settings, setSettings] = useState<StoreSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showPromoPopup, setShowPromoPopup] = useState(false);
@@ -109,11 +111,32 @@ export default function HomepageContent() {
   }, []);
 
   useEffect(() => {
+    async function loadSettings() {
+      try {
+        const data = await getStorefrontSettings();
+        setSettings(data);
+      } catch {}
+    }
+    loadSettings();
+  }, []);
+
+  const heroBanners = settings?.heroBanners 
+    ? settings.heroBanners.map((src, i) => ({ src, alt: `Banner ${i + 1}` }))
+    : defaultHeroBanners;
+
+  const deptImages = settings?.departmentImages || {};
+
+  const departments = defaultDepartments.map(dept => ({
+    ...dept,
+    image: deptImages[dept.slug] || dept.image
+  }));
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroBanners.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [heroBanners.length]);
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("Bonjour, je souhaite commander des produits auprès de Marché LT Eben-Ezer");
