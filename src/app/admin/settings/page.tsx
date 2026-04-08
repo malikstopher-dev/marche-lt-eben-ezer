@@ -1,22 +1,68 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { adminService, StoreSettings } from "../lib/adminService";
+
+const IMAGE_STORAGE_KEY = "marche_uploaded_images";
+
+interface UploadedImage {
+  [key: string]: string;
+}
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<StoreSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [uploadedImages, setUploadedImages] = useState<UploadedImage>({});
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [currentUploadField, setCurrentUploadField] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadData() {
       const data = await adminService.getSettings();
       setSettings(data);
+      
+      const stored = localStorage.getItem(IMAGE_STORAGE_KEY);
+      if (stored) {
+        setUploadedImages(JSON.parse(stored));
+      }
+      
       setLoading(false);
     }
     loadData();
   }, []);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, fieldKey: string) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        const newUploaded = { ...uploadedImages, [fieldKey]: result };
+        setUploadedImages(newUploaded);
+        localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(newUploaded));
+        
+        if (fieldKey.startsWith("dept_")) {
+          const slug = fieldKey.replace("dept_", "");
+          setSettings({ ...settings!, departmentImages: { ...settings!.departmentImages, [slug]: result } });
+        } else if (fieldKey.startsWith("banner_")) {
+          const index = parseInt(fieldKey.replace("banner_", ""));
+          const newBanners = [...settings!.heroBanners];
+          newBanners[index] = result;
+          setSettings({ ...settings!, heroBanners: newBanners });
+        }
+      }
+    };
+    reader.readAsDataURL(file);
+    
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    setCurrentUploadField(null);
+  };
 
   const handleSave = async () => {
     if (!settings) return;
@@ -251,13 +297,22 @@ export default function SettingsPage() {
                   <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Pas d'image</div>
                 )}
               </div>
-              <input
-                type="text"
-                value={image}
-                onChange={(e) => setSettings({ ...settings, departmentImages: { ...settings.departmentImages, [slug]: e.target.value } })}
-                placeholder="/product_images/..."
-                className="w-full px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
-              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={image}
+                  onChange={(e) => setSettings({ ...settings, departmentImages: { ...settings.departmentImages, [slug]: e.target.value } })}
+                  placeholder="/product_images/..."
+                  className="flex-1 px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setCurrentUploadField(`dept_${slug}`)}
+                  className="px-3 py-2 bg-[#F5F2ED] text-[#1A1A1A] rounded-xl text-sm hover:bg-[#E8E4DD]"
+                >
+                  📁
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -277,21 +332,38 @@ export default function SettingsPage() {
                   <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Pas d'image</div>
                 )}
               </div>
-              <input
-                type="text"
-                value={banner}
-                onChange={(e) => {
-                  const newBanners = [...settings.heroBanners];
-                  newBanners[index] = e.target.value;
-                  setSettings({ ...settings, heroBanners: newBanners });
-                }}
-                placeholder="/hero_banners/..."
-                className="w-full px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
-              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={banner}
+                  onChange={(e) => {
+                    const newBanners = [...settings.heroBanners];
+                    newBanners[index] = e.target.value;
+                    setSettings({ ...settings, heroBanners: newBanners });
+                  }}
+                  placeholder="/hero_banners/..."
+                  className="flex-1 px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setCurrentUploadField(`banner_${index}`)}
+                  className="px-3 py-2 bg-[#F5F2ED] text-[#1A1A1A] rounded-xl text-sm hover:bg-[#E8E4DD]"
+                >
+                  📁
+                </button>
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => currentUploadField && handleImageUpload(e, currentUploadField)}
+      />
 
       <button
         onClick={handleSave}
