@@ -1,0 +1,51 @@
+======================================================================
+IMAGE ALIGNMENT ANALYSIS REPORT
+======================================================================
+
+Source folders:
+  Product: marche_lt_image_pack_output\product_images
+  Review:  marche_lt_image_pack_output\review_bad_images
+
+--- SUMMARY ---
+Total files in product_images: 52
+Total files in review_bad_images: 197
+Exact relative-path matches: 0
+Filename-only matches: 0
+Stem-only matches: 0
+No matches: 197
+
+--- NO MATCH AT ALL (30 shown) ---
+  canned-food\065-sardine-anny-vegetable-oil-125g.jpg
+  canned-food\066-sardine-anny-vegetable-oil-and-piment-125g.jpg
+  canned-food\067-titus-sardines-soya-oil.jpg
+  canned-food\069-geisha-mackerel-red-425g.jpg
+  canned-food\070-geisha-mackerel-green-425g.jpg
+  canned-food\072-bom-petisco-tuna.jpg
+  canned-food\074-spam-gochujang.jpg
+  canned-food\075-geisha-jack-mackerel-chinchard.jpg
+  cosmetics\223-caro-light-cream.jpg
+  cosmetics\224-caro-light-lotion.jpg
+  cosmetics\225-clinic-clear-whitening-body-lotion.jpg
+  cosmetics\226-paw-paw-lait-clarifiant.jpg
+  cosmetics\227-paw-paw-cream-jar.jpg
+  cosmetics\228-bio-plus-papaya-lotion.jpg
+  cosmetics\229-aloe-vera-body-lotion.jpg
+  cosmetics\230-dermaclar-body-lotion.jpg
+  cosmetics\231-cocopulp-cream.jpg
+  cosmetics\233-rapid-clair.jpg
+  cosmetics\234-extra-clair.jpg
+  cosmetics\235-miki-clair.jpg
+  cosmetics\236-belleza-creme.jpg
+  cosmetics\237-ub-cream-jar.jpg
+  cosmetics\239-talc-powder.jpg
+  cosmetics\240-confo-perfume-oil.jpg
+  drinks\157-sumol-orange-drink-can.jpg
+  drinks\158-sumol-pineapple-drink-can.jpg
+  drinks\159-sagres-mineral-water.jpg
+  drinks\161-guarana-antarctica-zero.jpg
+  drinks\162-malta-guinness-330ml.jpg
+  drinks\163-makaya-banane-591ml.jpg
+
+======================================================================
+Report saved to: marche_lt_image_pack_output\image_alignment_analysis.txt
+======================================================================
