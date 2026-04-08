@@ -1,14 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getSiteContent, SiteContent } from "@/app/admin/lib/adminService";
 
 export default function Footer() {
+  const [siteContent, setSiteContent] = useState<SiteContent | null>(null);
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    async function loadContent() {
+      try {
+        const data = await getSiteContent();
+        setSiteContent(data);
+      } catch {}
+    }
+    loadContent();
+  }, []);
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("Bonjour, je souhaite commander des produits auprès de Marché LT Eben-Ezer");
-    window.open(`https://wa.me/15144670229?text=${message}`, "_blank");
+    const whatsapp = siteContent?.contact.whatsapp || "15144670229";
+    window.open(`https://wa.me/${whatsapp}?text=${message}`, "_blank");
   };
+
+  const siteName = siteContent?.branding?.footerText || `© ${currentYear} Marché LT Eben-Ezer. Tous droits réservés.`;
+  const phone = siteContent?.contact.phone || "+1 (514) 467-0229";
+  const address = siteContent?.contact.address || "4821 Boul Henri-Bourassa Est, Montréal, QC H1H 1M5";
 
   return (
     <footer className="bg-[#19212b] text-white">
@@ -59,7 +77,7 @@ export default function Footer() {
                 </svg>
                 <div>
                   <p className="text-[#6c7a89] text-xs">Adresse</p>
-                  <p className="text-white text-sm">4821 Boul Henri-Bourassa Est,<br />Montréal, QC H1H 1M5</p>
+                  <p className="text-white text-sm">{address.split(',').map((line, i) => <span key={i}>{line}<br /></span>)}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -68,7 +86,7 @@ export default function Footer() {
                 </svg>
                 <div>
                   <p className="text-[#6c7a89] text-xs">Téléphone</p>
-                  <a href="tel:+15144670229" className="text-white hover:text-[#47b6b1] text-sm">+1 (514) 467-0229</a>
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-white hover:text-[#47b6b1] text-sm">{phone}</a>
                 </div>
               </div>
             </div>
@@ -77,7 +95,7 @@ export default function Footer() {
 
         <div className="border-t border-white/10 mt-10 pt-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-[#6c7a89] text-sm">© {currentYear} Marché LT Eben-Ezer. Tous droits réservés.</p>
+            <p className="text-[#6c7a89] text-sm">{siteName}</p>
             <p className="text-[#6c7a89] text-sm">
               Website by <a href="https://stopher-malik.co.za" target="_blank" rel="noopener noreferrer" className="text-[#47b6b1] hover:text-white transition-colors">Stopher Malik</a>
             </p>

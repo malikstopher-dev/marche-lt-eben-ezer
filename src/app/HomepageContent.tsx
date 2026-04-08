@@ -6,7 +6,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getProducts, getProductImage } from "@/lib/productService";
-import { getStorefrontSettings, StoreSettings } from "./admin/lib/adminService";
+import { getStorefrontSettings, StoreSettings, getSiteContent, SiteContent } from "./admin/lib/adminService";
 
 interface Product {
   id: number;
@@ -49,7 +49,14 @@ const defaultDepartments = [
   { id: "Maison", name: "Maison", icon: "🧹", slug: "maison", image: "/product_images/household/211-old-dutch-bleach.jpg" },
 ];
 
-const trustFeatures = [
+const defaultTrustFeatures = [
+  { icon: "🛒", title: "Produits Authentiques", description: "Importés d'Afrique de l'Ouest" },
+  { icon: "📱", title: "Commande Facile", description: "Via WhatsApp" },
+  { icon: "🚚", title: "Livraison Gratuite", description: "Dès 299$ au Québec" },
+  { icon: "📍", title: "Cueillette en Magasin", description: "4831 Henri-Bourassa Est" },
+];
+
+const defaultPromoFeatures = [
   { icon: "🛒", title: "Produits Authentiques", description: "Importés d'Afrique de l'Ouest" },
   { icon: "📱", title: "Commande Facile", description: "Via WhatsApp" },
   { icon: "🚚", title: "Livraison Gratuite", description: "Dès 299$ au Québec" },
@@ -60,6 +67,7 @@ export default function HomepageContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [promoProducts, setPromoProducts] = useState<Product[]>([]);
   const [settings, setSettings] = useState<StoreSettings | null>(null);
+  const [siteContent, setSiteContent] = useState<SiteContent | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showPromoPopup, setShowPromoPopup] = useState(false);
@@ -120,6 +128,16 @@ export default function HomepageContent() {
     loadSettings();
   }, []);
 
+  useEffect(() => {
+    async function loadSiteContent() {
+      try {
+        const data = await getSiteContent();
+        setSiteContent(data);
+      } catch {}
+    }
+    loadSiteContent();
+  }, []);
+
   const heroBanners = settings?.heroBanners 
     ? settings.heroBanners.map((src, i) => ({ src, alt: `Banner ${i + 1}` }))
     : defaultHeroBanners;
@@ -130,6 +148,13 @@ export default function HomepageContent() {
     ...dept,
     image: deptImages[dept.slug] || dept.image
   }));
+
+  const heroTitle = siteContent?.homepage.heroTitle || "Bienvenue chez Marché LT Eben-Ezer";
+  const heroSubtitle = siteContent?.homepage.heroSubtitle || "Votre épicererie africaine de confiance à Montréal";
+  const welcomeMessage = siteContent?.homepage.welcomeMessage || "Découvrez des produits africains et internationaux authentiques";
+  const ctaText = siteContent?.homepage.ctaText || "Commander maintenant";
+  const ctaLink = siteContent?.homepage.ctaLink || "/shop";
+  const features = siteContent?.homepage.features || defaultTrustFeatures;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -269,21 +294,21 @@ export default function HomepageContent() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-              Les saveurs d'<span className="text-[#ec7205]">Afrique</span><br />
-              chez vous
+              {heroTitle.split(' ').map((word, i) => (
+                <span key={i}>{word}{i === 0 ? ' ' : ' '}</span>
+              ))}
             </h1>
 
             <p className="mt-6 text-xl text-white/80 max-w-lg">
-              Produits africains authentiques, épices, surgelés et boissons. 
-              Commandez facilement via WhatsApp.
+              {welcomeMessage}
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
-                href="/shop"
+                href={ctaLink}
                 className="px-10 py-4 bg-[#47b6b1] text-white font-bold rounded-full hover:bg-[#39918d] transition-all hover:shadow-lg hover:scale-105 text-center"
               >
-                Commander maintenant
+                {ctaText}
               </Link>
               <Link
                 href="/promotions"
@@ -300,7 +325,7 @@ export default function HomepageContent() {
       <section className="bg-[#19212b] py-6 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {trustFeatures.map((item, index) => (
+            {features.map((item, index) => (
               <div key={index} className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#ec7205]/20 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-xl">{item.icon}</span>

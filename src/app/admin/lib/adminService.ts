@@ -88,9 +88,64 @@ export interface StoreSettings {
   social?: {
     facebook?: string;
     instagram?: string;
+    youtube?: string;
+    tiktok?: string;
   };
   departmentImages: Record<string, string>;
   heroBanners: string[];
+}
+
+export interface SiteContent {
+  homepage: {
+    heroTitle: string;
+    heroSubtitle: string;
+    heroImage: string;
+    welcomeMessage: string;
+    ctaText: string;
+    ctaLink: string;
+    features: { icon: string; title: string; description: string }[];
+  };
+  about: {
+    heroTitle: string;
+    heroSubtitle: string;
+    heroImage: string;
+    introText: string;
+    fullDescription: string;
+    missionText: string;
+    valuesText: string;
+    additionalImages: string[];
+  };
+  contact: {
+    address: string;
+    phone: string;
+    additionalPhones: string[];
+    email: string;
+    whatsapp: string;
+    openingHours: string;
+    mapEmbedUrl: string;
+  };
+  promotions: {
+    enabled: boolean;
+    message: string;
+    buttonText: string;
+    buttonLink: string;
+  };
+  branding: {
+    logo: string;
+    favicon: string;
+    footerText: string;
+  };
+  seo: {
+    homeTitle: string;
+    homeDescription: string;
+    homeOgImage: string;
+    aboutTitle: string;
+    aboutDescription: string;
+    aboutOgImage: string;
+    contactTitle: string;
+    contactDescription: string;
+    contactOgImage: string;
+  };
 }
 
 const defaultSettings: StoreSettings = {
@@ -143,6 +198,64 @@ const defaultSettings: StoreSettings = {
   ],
 };
 
+export const defaultSiteContent: SiteContent = {
+  homepage: {
+    heroTitle: "Bienvenue chez Marché LT Eben-Ezer",
+    heroSubtitle: "Votre épicererie africaine de confiance à Montréal",
+    heroImage: "/hero_banners/hero1.jpg",
+    welcomeMessage: "Découvrez des produits africains et internationaux authentiques",
+    ctaText: "Découvrir nos produits",
+    ctaLink: "/shop",
+    features: [
+      { icon: "🛒", title: "Produits Authentiques", description: "Importés d'Afrique de l'Ouest" },
+      { icon: "📱", title: "Commande Facile", description: "Via WhatsApp" },
+      { icon: "🚚", title: "Livraison Gratuite", description: "Dès 299$ au Québec" },
+      { icon: "📍", title: "Cueillette en Magasin", description: "4831 Henri-Bourassa Est" },
+    ],
+  },
+  about: {
+    heroTitle: "À Propos de Marché LT Eben-Ezer",
+    heroSubtitle: "Votre épicererie africaine de confiance depuis plus de 5 ans",
+    heroImage: "/hero_banners/store-in1.jpg",
+    introText: "Marché LT Eben-Ezer propose des produits africains et internationaux authentiques à Montréal.",
+    fullDescription: "Fondé avec la passion de partager les saveurs d'Afrique, Marché LT Eben-Ezer offre une vaste sélection de produits traditionnels imported directement d'Afrique de l'Ouest et Centrale. Nous incontournons la qualité et l'authenticité de chaque produit que nous proposons.",
+    missionText: "Notre mission est de faire découvrir les produits africains authentiques à la communauté Africaine du Québec tout en préservant nos traditions culinaires.",
+    valuesText: "Nous privilégions les produits de qualité, le service client exceptionnel et la préservation des traditions africaines à travers l'alimentation.",
+    additionalImages: ["/hero_banners/store-in2.jpg", "/hero_banners/store-in3.jpg"],
+  },
+  contact: {
+    address: "4821 Boul Henri-Bourassa Est, Montréal, QC H1H 1M5",
+    phone: "+1 (514) 467-0229",
+    additionalPhones: ["+1 (514) 123-4567"],
+    email: "contact@marchelt.com",
+    whatsapp: "15144670229",
+    openingHours: "Lundi au Samedi: 9h - 19h, Dimanche: 11h - 17h",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2715.123456789!2d-73.65!3d45.58!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDM0JzAwLjAiTi03M1RsMzUwMDA!5e0!3m2!1sfr!2sca!4v1234567890",
+  },
+  promotions: {
+    enabled: true,
+    message: "Profitez de nos offres spéciales - Livraison gratuite dès 299$ d'achat!",
+    buttonText: "Voir les promotions",
+    buttonLink: "/promotions",
+  },
+  branding: {
+    logo: "/logo.png",
+    favicon: "/favicon.ico",
+    footerText: "© 2024 Marché LT Eben-Ezer. Tous droits réservés.",
+  },
+  seo: {
+    homeTitle: "Marché LT Eben-Ezer - Épicerie Africaine à Montréal",
+    homeDescription: "Découvrez des produits africains et internationaux authentiques. Commande via WhatsApp, livraison gratuite dès 299$ au Québec.",
+    homeOgImage: "/hero_banners/hero1.jpg",
+    aboutTitle: "À Propos - Marché LT Eben-Ezer",
+    aboutDescription: "En savoir plus sur Marché LT Eben-Ezer, votre épicererie africaine de confiance à Montréal.",
+    aboutOgImage: "/hero_banners/store-in1.jpg",
+    contactTitle: "Contactez-nous - Marché LT Eben-Ezer",
+    contactDescription: "Contactez Marché LT Eben-Ezer pour vos commandes ou demandes d'information.",
+    contactOgImage: "/hero_banners/store-in2.jpg",
+  },
+};
+
 export const defaultCategories: Category[] = [
   { id: "pantry-staples", name: "Épicerie Africaine", slug: "pantry-staples", description: "Farines, riz, haricots, epices", product_count: 0, featured: true },
   { id: "frozen-foods", name: "Poissons & Surgelés", slug: "frozen-foods", description: "Poissons, viande surgelees", product_count: 0, featured: true },
@@ -172,6 +285,7 @@ const STORAGE_KEYS = {
   promotions: "admin_promotions",
   orders: "admin_orders",
   settings: "admin_settings",
+  siteContent: "admin_site_content",
 };
 
 class AdminService {
@@ -348,6 +462,21 @@ class AdminService {
   async saveSettings(settings: StoreSettings): Promise<void> {
     localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(settings));
   }
+
+  async getSiteContent(): Promise<SiteContent> {
+    if (typeof window === "undefined") return defaultSiteContent;
+    const stored = localStorage.getItem(STORAGE_KEYS.siteContent);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      return { ...defaultSiteContent, ...parsed };
+    }
+    localStorage.setItem(STORAGE_KEYS.siteContent, JSON.stringify(defaultSiteContent));
+    return defaultSiteContent;
+  }
+
+  async saveSiteContent(content: SiteContent): Promise<void> {
+    localStorage.setItem(STORAGE_KEYS.siteContent, JSON.stringify(content));
+  }
 }
 
 export const adminService = new AdminService();
@@ -380,4 +509,12 @@ export function getProductImage(product: Product | undefined | null): string {
 
 export async function getStorefrontSettings(): Promise<StoreSettings> {
   return adminService.getSettings();
+}
+
+export async function getSiteContent(): Promise<SiteContent> {
+  return adminService.getSiteContent();
+}
+
+export async function saveSiteContent(content: SiteContent): Promise<void> {
+  return adminService.saveSiteContent(content);
 }

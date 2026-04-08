@@ -1,10 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getSiteContent, SiteContent } from "../admin/lib/adminService";
 
 export default function ContactClient() {
+  const [siteContent, setSiteContent] = useState<SiteContent | null>(null);
+
+  useEffect(() => {
+    async function loadContent() {
+      try {
+        const data = await getSiteContent();
+        setSiteContent(data);
+      } catch {}
+    }
+    loadContent();
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,6 +47,13 @@ export default function ContactClient() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const address = siteContent?.contact.address || "4821 Boul Henri-Bourassa Est, Montréal, QC H1H 1M5";
+  const phone = siteContent?.contact.phone || "+1 (514) 467-0229";
+  const email = siteContent?.contact.email || "contact@marchelt.com";
+  const whatsapp = siteContent?.contact.whatsapp || "15144670229";
+  const openingHours = siteContent?.contact.openingHours || "Lundi au Samedi: 9h - 19h, Dimanche: 11h - 17h";
+  const mapUrl = siteContent?.contact.mapEmbedUrl || "";
 
   return (
     <div className="min-h-screen bg-white py-24">
@@ -76,8 +96,9 @@ export default function ContactClient() {
                   <div>
                     <h3 className="font-semibold text-[#19212b] mb-1">Adresse</h3>
                     <p className="text-[#6c7a89]">
-                      4821 Boul Henri-Bourassa Est<br />
-                      Montréal, QC H1H 1M5<br />
+                      {address.split(',').map((line, i) => (
+                        <span key={i}>{line}<br /></span>
+                      ))}
                       Québec, Canada
                     </p>
                   </div>
@@ -91,8 +112,8 @@ export default function ContactClient() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#19212b] mb-1">Téléphone</h3>
-                    <a href="tel:+15144670229" className="text-[#6c7a89] hover:text-[#ec7205] transition-colors">
-                      +1 (514) 467-0229
+                    <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-[#6c7a89] hover:text-[#ec7205] transition-colors">
+                      {phone}
                     </a>
                   </div>
                 </div>
@@ -106,7 +127,7 @@ export default function ContactClient() {
                   <div>
                     <h3 className="font-semibold text-[#19212b] mb-1">WhatsApp</h3>
                     <a 
-                      href="https://wa.me/15144670229" 
+                      href={`https://wa.me/${whatsapp}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-[#6c7a89] hover:text-[#25D366] transition-colors"
@@ -125,7 +146,7 @@ export default function ContactClient() {
                   <div>
                     <h3 className="font-semibold text-[#19212b] mb-1">Heures d'Ouverture</h3>
                     <p className="text-[#6c7a89]">
-                      Monday - Friday: 9 AM - 9 PM<br />
+                      {openingHours}<br />
                       Saturday: 9 AM - 10 PM<br />
                       Sunday: 9 AM - 10 PM
                     </p>

@@ -1,11 +1,33 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getSiteContent, SiteContent } from "./admin/lib/adminService";
 
 export default function AboutClient() {
+  const [siteContent, setSiteContent] = useState<SiteContent | null>(null);
+
+  useEffect(() => {
+    async function loadContent() {
+      try {
+        const data = await getSiteContent();
+        setSiteContent(data);
+      } catch {}
+    }
+    loadContent();
+  }, []);
+
+  const heroTitle = siteContent?.about.heroTitle || "À Propos de Marché LT Eben-Ezer";
+  const heroSubtitle = siteContent?.about.heroSubtitle || "Votre épicererie africaine de confiance depuis plus de 5 ans";
+  const heroImage = siteContent?.about.heroImage || "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&h=600&fit=crop";
+  const introText = siteContent?.about.introText || "Marché LT Eben-Ezer propose des produits africains et internationaux authentiques à Montréal.";
+  const fullDescription = siteContent?.about.fullDescription || "Fondé avec la passion de partager les saveurs d'Afrique, Marché LT Eben-Ezer offre une vaste sélection de produits traditionnels importés directement d'Afrique de l'Ouest et Centrale.";
+  const missionText = siteContent?.about.missionText || "Notre mission est de faire découvrir les produits africains authentiques à la communauté Africaine du Québec tout en préservant nos traditions culinaires.";
+  const valuesText = siteContent?.about.valuesText || "Nous privilégions les produits de qualité, le service client exceptionnel et la préservation des traditions africaines à travers l'alimentation.";
+
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("Bonjour, je souhaite en savoir plus sur Marché LT Eben-Ezer");
     window.open(`https://wa.me/15144670229?text=${message}`, "_blank");
@@ -18,7 +40,7 @@ export default function AboutClient() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1920&h=600&fit=crop"
+            src={heroImage}
             alt="Notre magasin"
             fill
             className="object-cover opacity-30"
@@ -27,10 +49,10 @@ export default function AboutClient() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            À Propos de <span className="text-[#ec7205]">Marché LT Eben-Ezer</span>
+            {heroTitle}
           </h1>
           <p className="text-xl text-[#6c7a89] max-w-3xl mx-auto">
-            Votre destination pour les produits africains et internationaux-authentiques à Montréal
+            {heroSubtitle}
           </p>
         </div>
       </section>
@@ -41,7 +63,7 @@ export default function AboutClient() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=800&fit=crop"
+                src={heroImage}
                 alt="Marché LT Eben-Ezer"
                 fill
                 className="object-cover"
@@ -59,13 +81,10 @@ export default function AboutClient() {
               </h2>
               <div className="space-y-6 text-[#6c7a89] text-lg leading-relaxed">
                 <p>
-                  Marché LT Eben-Ezer est né d'une vision simple mais profonde : permettre à chaque famille africaine établie à Montréal de retrouver les saveurs authentique de leur terre d'origine.
+                  {introText}
                 </p>
                 <p>
-                  Fondé avec passion et dedication, notre magasin est devenu bien plus qu'une simple épicerie - c'est un véritable point de rencontre pour la diaspora africaine au Québec. Nous proposons une sélection rigoureuse de produits directement importés d'Afrique de l'Ouest, d'Afrique Centrale et des Caraïbes.
-                </p>
-                <p>
-                  Notre engagement envers la qualité est absolu. Chaque produit est sélectionné avec soin, privilégié les fournisseurs fiables et les marques appréciées des communautés. Que vous cherchiez le gari parfait pour votre ekwang, l'huile de palme rouge pour votre ndolé, ou simplement vos épices préférées, nous avons ce qu'il vous faut.
+                  {fullDescription}
                 </p>
               </div>
             </div>
@@ -92,9 +111,9 @@ export default function AboutClient() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Authenticité Garantie</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Notre Mission</h3>
               <p className="text-[#6c7a89] leading-relaxed">
-                Nous sélectionnons uniquement des produits authentiquesprovenants de fournisseurs fiables. Chaque article est choisi pour sa qualité et son respect des traditions culinaires africaines.
+                {missionText}
               </p>
             </div>
 
@@ -106,7 +125,7 @@ export default function AboutClient() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Service Communautaire</h3>
               <p className="text-[#6c7a89] leading-relaxed">
-                Plus qu'un commerce, nous sommes un lieu de rencontre et d'échange pour la communauté africaine. Nous privilégions les relations humaines et le service personnalisé.
+                {valuesText}
               </p>
             </div>
 
