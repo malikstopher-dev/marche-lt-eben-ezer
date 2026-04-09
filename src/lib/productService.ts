@@ -1,5 +1,7 @@
+export const PLACEHOLDER_IMAGE = "/product_images/placeholder.svg";
+
 export function getProductImage(product: Product): string {
-  return product?.image || "";
+  return product?.image || PLACEHOLDER_IMAGE;
 }
 
 export interface Product {
@@ -35,7 +37,7 @@ export async function getProducts(): Promise<Product[]> {
     const products = JSON.parse(stored);
     return products.map((p: Product) => ({
       ...p,
-      image: p?.image || "",
+      image: p?.image || PLACEHOLDER_IMAGE,
     }));
   }
    
@@ -44,7 +46,7 @@ export async function getProducts(): Promise<Product[]> {
     const products = await response.json();
     const productsWithImages = products.map((p: Product) => ({
       ...p,
-      image: p?.image || "",
+      image: p?.image || PLACEHOLDER_IMAGE,
     }));
     localStorage.setItem(STORAGE_KEY, JSON.stringify(productsWithImages));
     return productsWithImages;
