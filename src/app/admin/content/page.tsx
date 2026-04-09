@@ -45,6 +45,12 @@ export default function ContentManagerPage() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (currentUploadField && fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  }, [currentUploadField]);
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, fieldKey: string) => {
     const file = e.target.files?.[0];
     if (!file || !content) return;
