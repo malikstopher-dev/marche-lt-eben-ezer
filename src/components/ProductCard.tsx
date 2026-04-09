@@ -95,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200">
         <div className="relative aspect-square bg-gray-100">
           <Image
-            src={imageError ? "/products/placeholder.svg" : getProductImage(product)}
+            src={imageError ? "/product_images/placeholder.svg" : getProductImage(product)}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"

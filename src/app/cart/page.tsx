@@ -62,7 +62,7 @@ export default function CartPage() {
                 {cart.map((item) => (
                   <div key={item.id} className="p-4 sm:p-6 flex gap-4 items-center">
                     <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0">
-                      <Image src={item.image || "/products/placeholder.svg"} alt={item.name} fill className="object-cover" onError={(e) => { const target = e.target as HTMLImageElement; target.src = "/products/placeholder.svg"; }} />
+                      <Image src={item.image || "/product_images/placeholder.svg"} alt={item.name} fill className="object-cover" onError={(e) => { const target = e.target as HTMLImageElement; target.src = "/product_images/placeholder.svg"; }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-white truncate">{item.name}</h3>

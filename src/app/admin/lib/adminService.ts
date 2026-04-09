@@ -1,4 +1,4 @@
-export const PLACEHOLDER_IMAGE = "/products/placeholder.svg";
+export const PLACEHOLDER_IMAGE = "/product_images/placeholder.svg";
 
 export interface Product {
   id: number;
