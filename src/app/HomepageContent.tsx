@@ -465,19 +465,6 @@ export default function HomepageContent() {
                 </Link>
               </div>
             </div>
-            <div className="relative">
-              <div className="aspect-video rounded-xl overflow-hidden">
-                <img
-                  src="/hero_banners/store-in1.jpg"
-                  alt="Notre magasin"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-white px-6 py-4 rounded-xl shadow-lg">
-                <div className="text-2xl font-bold text-[#47b6b1]">5+</div>
-                <div className="text-gray-600 text-sm">années d'expérience</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
