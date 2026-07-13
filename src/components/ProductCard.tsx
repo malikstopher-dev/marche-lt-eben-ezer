@@ -30,6 +30,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const [mounted, setMounted] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const { addToCart } = useApp();
 
   useEffect(() => {
     setMounted(true);
@@ -46,8 +47,6 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
     );
   }
-
-  const { addToCart } = useApp();
 
   const isPromoActive = () => {
     if (!product.onPromo) return false;

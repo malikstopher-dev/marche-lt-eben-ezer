@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
 
 export default function CartPage() {
   const [mounted, setMounted] = useState(false);
+  const { t, cart, removeFromCart, updateQuantity, cartTotal } = useApp();
 
   useEffect(() => {
     setMounted(true);
@@ -30,8 +31,6 @@ export default function CartPage() {
       </div>
     );
   }
-
-  const { t, cart, removeFromCart, updateQuantity, cartTotal } = useApp();
 
   const handleCheckout = () => {
     if (cart.length === 0) return;

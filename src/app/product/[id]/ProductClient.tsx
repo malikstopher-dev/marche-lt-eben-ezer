@@ -40,6 +40,7 @@ export default function ProductClient({ id }: Props) {
   const [mounted, setMounted] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useApp();
 
   useEffect(() => {
     setMounted(true);
@@ -55,8 +56,6 @@ export default function ProductClient({ id }: Props) {
       </div>
     );
   }
-
-  const { addToCart } = useApp();
 
   useEffect(() => {
     async function loadProduct() {

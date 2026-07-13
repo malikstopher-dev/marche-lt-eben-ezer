@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function WhatsAppButton() {
   const [mounted, setMounted] = useState(false);
+  const { cart, cartTotal } = useApp();
 
   useEffect(() => {
     setMounted(true);
@@ -13,8 +14,6 @@ export default function WhatsAppButton() {
   if (!mounted) {
     return null;
   }
-
-  const { cart, cartTotal } = useApp();
 
   const generateWhatsAppMessage = () => {
     if (cart.length === 0) {
