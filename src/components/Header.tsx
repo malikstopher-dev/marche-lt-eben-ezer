@@ -80,7 +80,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center text-xs">
           <span>4821 Boul Henri-Bourassa Est, Montréal</span>
           <div className="flex items-center gap-4">
-            <span>Lun-Ven: 9 AM - 9 PM | Sam: 9 AM - 10 PM | Dim: 9 AM - 10 PM</span>
+            <span>Lun-Ven: 9 AM - 9 PM | Sam: 9 AM - 10 PM | Dim: Fermé</span>
             <a href="tel:+15144670229" className="hover:underline">+1 (514) 467-0229</a>
           </div>
         </div>

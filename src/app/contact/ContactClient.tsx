@@ -52,7 +52,7 @@ export default function ContactClient() {
   const phone = siteContent?.contact.phone || "+1 (514) 467-0229";
   const email = siteContent?.contact.email || "contact@marchelt.com";
   const whatsapp = siteContent?.contact.whatsapp || "15144670229";
-  const openingHours = siteContent?.contact.openingHours || "Lundi au Samedi: 9h - 19h, Dimanche: 11h - 17h";
+  const openingHours = siteContent?.contact.openingHours || "Lundi au Samedi: 9h - 19h, Dimanche: Fermé";
   const mapUrl = siteContent?.contact.mapEmbedUrl || "";
 
   return (
@@ -148,7 +148,7 @@ export default function ContactClient() {
                     <p className="text-[#6c7a89]">
                       {openingHours}<br />
                       Saturday: 9 AM - 10 PM<br />
-                      Sunday: 9 AM - 10 PM
+                      Sunday: Fermé
                     </p>
                   </div>
                 </div>

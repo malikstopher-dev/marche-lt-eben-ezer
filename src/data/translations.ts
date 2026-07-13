@@ -45,7 +45,7 @@ export const translations = {
     },
     footer: {
       address: "4821 Boulevard Henri Bourassa, Montréal",
-      hours: "Mon-Fri: 9 AM - 9 PM | Sat-Sun: 9 AM - 10 PM",
+      hours: "Mon-Fri: 9 AM - 9 PM | Sat: 9 AM - 10 PM | Sun: Fermé",
       rights: "Tous droits réservés.",
     },
     common: {
@@ -114,7 +114,7 @@ export const translations = {
     },
     footer: {
       address: "4821 Boulevard Henri Bourassa, Montreal",
-      hours: "Mon-Sat: 9am-6pm",
+      hours: "Mon-Sat: 9am-6pm | Sun: Closed",
       rights: "All rights reserved.",
     },
     common: {
