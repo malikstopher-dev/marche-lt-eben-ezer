@@ -15,7 +15,7 @@ const eslintConfig = defineConfig([
       "react-hooks/purity": "off",
     },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "generate-products.js", "create-products.ps1", "resize_hero_images.py", "marche_lt_image_pack_output/**"]),
 ]);
 
 export default eslintConfig;
