@@ -20,6 +20,77 @@ const tabs: { id: TabId; label: string; icon: string }[] = [
   { id: "seo", label: "SEO", icon: "🔍" },
 ];
 
+interface TextFieldProps {
+  label: string;
+  value: string;
+  fieldKey: string;
+  rows?: number;
+  onChange: (fieldKey: string, value: string) => void;
+}
+
+function TextField({ label, value, fieldKey, rows = 2, onChange }: TextFieldProps) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-[#1A1A1A] mb-2">{label}</label>
+      {rows > 1 ? (
+        <textarea
+          value={value}
+          onChange={(e) => onChange(fieldKey, e.target.value)}
+          rows={rows}
+          className="w-full px-4 py-2.5 border border-[#E8E4DD] rounded-xl"
+        />
+      ) : (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(fieldKey, e.target.value)}
+          className="w-full px-4 py-2.5 border border-[#E8E4DD] rounded-xl"
+        />
+      )}
+    </div>
+  );
+}
+
+interface ImageFieldProps {
+  label: string;
+  value: string;
+  fieldKey: string;
+  aspect?: "square" | "video";
+  onChange: (fieldKey: string, value: string) => void;
+  onUpload: (fieldKey: string) => void;
+}
+
+function ImageField({ label, value, fieldKey, aspect = "square", onChange, onUpload }: ImageFieldProps) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-[#1A1A1A]">{label}</label>
+      <div className={`rounded-lg overflow-hidden bg-gray-100 border border-[#E8E4DD] ${aspect === "video" ? "aspect-video" : "aspect-square"}`}>
+        {value ? (
+          <img src={value} alt={label} className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Pas d&apos;image</div>
+        )}
+      </div>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(fieldKey, e.target.value)}
+          placeholder="/image.jpg"
+          className="flex-1 px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
+        />
+        <button
+          type="button"
+          onClick={() => onUpload(fieldKey)}
+          className="px-3 py-2 bg-[#F5F2ED] text-[#1A1A1A] rounded-xl text-sm hover:bg-[#E8E4DD]"
+        >
+          📁
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ContentManagerPage() {
   const [content, setContent] = useState<SiteContent | null>(null);
   const [loading, setLoading] = useState(true);
@@ -34,12 +105,12 @@ export default function ContentManagerPage() {
     async function loadData() {
       const data = await adminService.getSiteContent();
       setContent(data);
-      
+
       const stored = localStorage.getItem(IMAGE_STORAGE_KEY);
       if (stored) {
         setUploadedImages(JSON.parse(stored));
       }
-      
+
       setLoading(false);
     }
     loadData();
@@ -62,12 +133,12 @@ export default function ContentManagerPage() {
         const newUploaded = { ...uploadedImages, [fieldKey]: result };
         setUploadedImages(newUploaded);
         localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(newUploaded));
-        
+
         updateContentField(fieldKey, result);
       }
     };
     reader.readAsDataURL(file);
-    
+
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -76,27 +147,33 @@ export default function ContentManagerPage() {
 
   const updateContentField = (fieldKey: string, value: string) => {
     if (!content) return;
-    
+
     const parts = fieldKey.split(".");
     if (parts.length === 2) {
       const [section, field] = parts;
+      const sectionKey = section as keyof SiteContent;
+      const sectionData = content[sectionKey] as Record<string, unknown>;
       setContent({
         ...content,
         [section]: {
-          ...content[section as keyof typeof content],
+          ...sectionData,
           [field]: value,
         },
       });
     } else if (parts.length === 3) {
       const [section, field, index] = parts;
-      if (field === "additionalImages" || field === "features") {
-        const arr = [...(content[section as keyof typeof content] as any)[field]];
-        arr[parseInt(index)] = value;
+      const idx = parseInt(index);
+      const sectionKey = section as keyof SiteContent;
+      const sectionData = content[sectionKey] as Record<string, unknown>;
+      const currentArr = sectionData[field];
+      if (Array.isArray(currentArr)) {
+        const newArr = [...currentArr];
+        newArr[idx] = value;
         setContent({
           ...content,
           [section]: {
-            ...content[section as keyof typeof content],
-            [field]: arr,
+            ...sectionData,
+            [field]: newArr,
           },
         });
       }
@@ -107,66 +184,16 @@ export default function ContentManagerPage() {
     if (!content) return;
     setSaving(true);
     setMessage("");
-    
+
     try {
       await adminService.saveSiteContent(content);
       setMessage("Contenu enregistré avec succès!");
     } catch (error) {
       setMessage("Erreur lors de l'enregistrement");
     }
-    
+
     setSaving(false);
   };
-
-  const ImageField = ({ label, value, fieldKey, aspect = "square" }: { label: string; value: string; fieldKey: string; aspect?: "square" | "video" }) => (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-[#1A1A1A]">{label}</label>
-      <div className={`rounded-lg overflow-hidden bg-gray-100 border border-[#E8E4DD] ${aspect === "video" ? "aspect-video" : "aspect-square"}`}>
-        {value ? (
-          <img src={value} alt={label} className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Pas d'image</div>
-        )}
-      </div>
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => updateContentField(fieldKey, e.target.value)}
-          placeholder="/image.jpg"
-          className="flex-1 px-3 py-2 border border-[#E8E4DD] rounded-xl text-sm"
-        />
-        <button
-          type="button"
-          onClick={() => setCurrentUploadField(fieldKey)}
-          className="px-3 py-2 bg-[#F5F2ED] text-[#1A1A1A] rounded-xl text-sm hover:bg-[#E8E4DD]"
-        >
-          📁
-        </button>
-      </div>
-    </div>
-  );
-
-  const TextField = ({ label, value, fieldKey, rows = 2 }: { label: string; value: string; fieldKey: string; rows?: number }) => (
-    <div>
-      <label className="block text-sm font-medium text-[#1A1A1A] mb-2">{label}</label>
-      {rows > 1 ? (
-        <textarea
-          value={value}
-          onChange={(e) => updateContentField(fieldKey, e.target.value)}
-          rows={rows}
-          className="w-full px-4 py-2.5 border border-[#E8E4DD] rounded-xl"
-        />
-      ) : (
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => updateContentField(fieldKey, e.target.value)}
-          className="w-full px-4 py-2.5 border border-[#E8E4DD] rounded-xl"
-        />
-      )}
-    </div>
-  );
 
   if (loading || !content) {
     return (
@@ -212,22 +239,22 @@ export default function ContentManagerPage() {
       <div className="bg-white rounded-2xl border border-[#E8E4DD] p-6">
         {activeTab === "homepage" && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-[#1A1A1A]">Page d'Accueil</h2>
-            
+            <h2 className="text-lg font-semibold text-[#1A1A1A]">Page d&apos;Accueil</h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextField label="Titre Hero" value={content.homepage.heroTitle} fieldKey="homepage.heroTitle" />
-              <TextField label="Sous-titre Hero" value={content.homepage.heroSubtitle} fieldKey="homepage.heroSubtitle" />
+              <TextField label="Titre Hero" value={content.homepage.heroTitle} fieldKey="homepage.heroTitle" onChange={updateContentField} />
+              <TextField label="Sous-titre Hero" value={content.homepage.heroSubtitle} fieldKey="homepage.heroSubtitle" onChange={updateContentField} />
             </div>
-            
-            <ImageField label="Image Hero" value={content.homepage.heroImage} fieldKey="homepage.heroImage" />
-            
-            <TextField label="Message de Bienvenue" value={content.homepage.welcomeMessage} fieldKey="homepage.welcomeMessage" rows={3} />
-            
+
+            <ImageField label="Image Hero" value={content.homepage.heroImage} fieldKey="homepage.heroImage" onChange={updateContentField} onUpload={setCurrentUploadField} />
+
+            <TextField label="Message de Bienvenue" value={content.homepage.welcomeMessage} fieldKey="homepage.welcomeMessage" rows={3} onChange={updateContentField} />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextField label="Texte du bouton CTA" value={content.homepage.ctaText} fieldKey="homepage.ctaText" />
-              <TextField label="Lien du bouton CTA" value={content.homepage.ctaLink} fieldKey="homepage.ctaLink" />
+              <TextField label="Texte du bouton CTA" value={content.homepage.ctaText} fieldKey="homepage.ctaText" onChange={updateContentField} />
+              <TextField label="Lien du bouton CTA" value={content.homepage.ctaLink} fieldKey="homepage.ctaLink" onChange={updateContentField} />
             </div>
-            
+
             <div className="space-y-4">
               <h3 className="font-medium text-[#1A1A1A]">Fonctionnalités</h3>
               {content.homepage.features.map((feature, index) => (
@@ -274,19 +301,19 @@ export default function ContentManagerPage() {
         {activeTab === "about" && (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-[#1A1A1A]">À Propos</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextField label="Titre Hero" value={content.about.heroTitle} fieldKey="about.heroTitle" />
-              <TextField label="Sous-titre Hero" value={content.about.heroSubtitle} fieldKey="about.heroSubtitle" />
+              <TextField label="Titre Hero" value={content.about.heroTitle} fieldKey="about.heroTitle" onChange={updateContentField} />
+              <TextField label="Sous-titre Hero" value={content.about.heroSubtitle} fieldKey="about.heroSubtitle" onChange={updateContentField} />
             </div>
-            
-            <ImageField label="Image Hero" value={content.about.heroImage} fieldKey="about.heroImage" />
-            
-            <TextField label="Texte d'introduction" value={content.about.introText} fieldKey="about.introText" rows={3} />
-            <TextField label="Description complète" value={content.about.fullDescription} fieldKey="about.fullDescription" rows={6} />
-            <TextField label="Mission" value={content.about.missionText} fieldKey="about.missionText" rows={3} />
-            <TextField label="Valeurs" value={content.about.valuesText} fieldKey="about.valuesText" rows={3} />
-            
+
+            <ImageField label="Image Hero" value={content.about.heroImage} fieldKey="about.heroImage" onChange={updateContentField} onUpload={setCurrentUploadField} />
+
+            <TextField label="Texte d'introduction" value={content.about.introText} fieldKey="about.introText" rows={3} onChange={updateContentField} />
+            <TextField label="Description complète" value={content.about.fullDescription} fieldKey="about.fullDescription" rows={6} onChange={updateContentField} />
+            <TextField label="Mission" value={content.about.missionText} fieldKey="about.missionText" rows={3} onChange={updateContentField} />
+            <TextField label="Valeurs" value={content.about.valuesText} fieldKey="about.valuesText" rows={3} onChange={updateContentField} />
+
             <div className="space-y-4">
               <h3 className="font-medium text-[#1A1A1A]">Images supplémentaires</h3>
               <div className="grid grid-cols-2 gap-4">
@@ -296,6 +323,8 @@ export default function ContentManagerPage() {
                     label={`Image ${index + 1}`}
                     value={img}
                     fieldKey={`about.additionalImages.${index}`}
+                    onChange={updateContentField}
+                    onUpload={setCurrentUploadField}
                   />
                 ))}
               </div>
@@ -306,23 +335,23 @@ export default function ContentManagerPage() {
         {activeTab === "contact" && (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-[#1A1A1A]">Contact</h2>
-            
-            <TextField label="Adresse" value={content.contact.address} fieldKey="contact.address" rows={2} />
+
+            <TextField label="Adresse" value={content.contact.address} fieldKey="contact.address" rows={2} onChange={updateContentField} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextField label="Téléphone principal" value={content.contact.phone} fieldKey="contact.phone" />
-              <TextField label="WhatsApp" value={content.contact.whatsapp} fieldKey="contact.whatsapp" />
+              <TextField label="Téléphone principal" value={content.contact.phone} fieldKey="contact.phone" onChange={updateContentField} />
+              <TextField label="WhatsApp" value={content.contact.whatsapp} fieldKey="contact.whatsapp" onChange={updateContentField} />
             </div>
-            <TextField label="Email" value={content.contact.email} fieldKey="contact.email" />
-            <TextField label="Autres téléphones (séparés par virgule)" value={content.contact.additionalPhones.join(", ")} fieldKey="contact.additionalPhones" />
-            <TextField label="Heures d'ouverture" value={content.contact.openingHours} fieldKey="contact.openingHours" rows={2} />
-            <TextField label="URL Google Maps Embed" value={content.contact.mapEmbedUrl} fieldKey="contact.mapEmbedUrl" rows={3} />
+            <TextField label="Email" value={content.contact.email} fieldKey="contact.email" onChange={updateContentField} />
+            <TextField label="Autres téléphones (séparés par virgule)" value={content.contact.additionalPhones.join(", ")} fieldKey="contact.additionalPhones" onChange={updateContentField} />
+            <TextField label="Heures d'ouverture" value={content.contact.openingHours} fieldKey="contact.openingHours" rows={2} onChange={updateContentField} />
+            <TextField label="URL Google Maps Embed" value={content.contact.mapEmbedUrl} fieldKey="contact.mapEmbedUrl" rows={3} onChange={updateContentField} />
           </div>
         )}
 
         {activeTab === "promotions" && (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-[#1A1A1A]">Promotions</h2>
-            
+
             <div className="flex items-center gap-3">
               <input
                 type="checkbox"
@@ -332,11 +361,11 @@ export default function ContentManagerPage() {
               />
               <label className="text-sm font-medium text-[#1A1A1A]">Activer la barre de promotions</label>
             </div>
-            
-            <TextField label="Message de la promotion" value={content.promotions.message} fieldKey="promotions.message" rows={2} />
+
+            <TextField label="Message de la promotion" value={content.promotions.message} fieldKey="promotions.message" rows={2} onChange={updateContentField} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextField label="Texte du bouton" value={content.promotions.buttonText} fieldKey="promotions.buttonText" />
-              <TextField label="Lien du bouton" value={content.promotions.buttonLink} fieldKey="promotions.buttonLink" />
+              <TextField label="Texte du bouton" value={content.promotions.buttonText} fieldKey="promotions.buttonText" onChange={updateContentField} />
+              <TextField label="Lien du bouton" value={content.promotions.buttonLink} fieldKey="promotions.buttonLink" onChange={updateContentField} />
             </div>
           </div>
         )}
@@ -344,36 +373,36 @@ export default function ContentManagerPage() {
         {activeTab === "branding" && (
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-[#1A1A1A]">Identité Visuelle</h2>
-            
-            <ImageField label="Logo" value={content.branding.logo} fieldKey="branding.logo" aspect="video" />
-            <ImageField label="Favicon" value={content.branding.favicon} fieldKey="branding.favicon" />
-            <TextField label="Texte du pied de page" value={content.branding.footerText} fieldKey="branding.footerText" rows={2} />
+
+            <ImageField label="Logo" value={content.branding.logo} fieldKey="branding.logo" aspect="video" onChange={updateContentField} onUpload={setCurrentUploadField} />
+            <ImageField label="Favicon" value={content.branding.favicon} fieldKey="branding.favicon" onChange={updateContentField} onUpload={setCurrentUploadField} />
+            <TextField label="Texte du pied de page" value={content.branding.footerText} fieldKey="branding.footerText" rows={2} onChange={updateContentField} />
           </div>
         )}
 
         {activeTab === "seo" && (
           <div className="space-y-8">
             <h2 className="text-lg font-semibold text-[#1A1A1A]">Référencement (SEO)</h2>
-            
+
             <div className="space-y-4">
-              <h3 className="font-medium text-[#1A1A1A]">Page d'Accueil</h3>
-              <TextField label="Titre Meta" value={content.seo.homeTitle} fieldKey="seo.homeTitle" />
-              <TextField label="Description Meta" value={content.seo.homeDescription} fieldKey="seo.homeDescription" rows={3} />
-              <ImageField label="Image Open Graph" value={content.seo.homeOgImage} fieldKey="seo.homeOgImage" />
+              <h3 className="font-medium text-[#1A1A1A]">Page d&apos;Accueil</h3>
+              <TextField label="Titre Meta" value={content.seo.homeTitle} fieldKey="seo.homeTitle" onChange={updateContentField} />
+              <TextField label="Description Meta" value={content.seo.homeDescription} fieldKey="seo.homeDescription" rows={3} onChange={updateContentField} />
+              <ImageField label="Image Open Graph" value={content.seo.homeOgImage} fieldKey="seo.homeOgImage" onChange={updateContentField} onUpload={setCurrentUploadField} />
             </div>
-            
+
             <div className="space-y-4">
               <h3 className="font-medium text-[#1A1A1A]">À Propos</h3>
-              <TextField label="Titre Meta" value={content.seo.aboutTitle} fieldKey="seo.aboutTitle" />
-              <TextField label="Description Meta" value={content.seo.aboutDescription} fieldKey="seo.aboutDescription" rows={3} />
-              <ImageField label="Image Open Graph" value={content.seo.aboutOgImage} fieldKey="seo.aboutOgImage" />
+              <TextField label="Titre Meta" value={content.seo.aboutTitle} fieldKey="seo.aboutTitle" onChange={updateContentField} />
+              <TextField label="Description Meta" value={content.seo.aboutDescription} fieldKey="seo.aboutDescription" rows={3} onChange={updateContentField} />
+              <ImageField label="Image Open Graph" value={content.seo.aboutOgImage} fieldKey="seo.aboutOgImage" onChange={updateContentField} onUpload={setCurrentUploadField} />
             </div>
-            
+
             <div className="space-y-4">
               <h3 className="font-medium text-[#1A1A1A]">Contact</h3>
-              <TextField label="Titre Meta" value={content.seo.contactTitle} fieldKey="seo.contactTitle" />
-              <TextField label="Description Meta" value={content.seo.contactDescription} fieldKey="seo.contactDescription" rows={3} />
-              <ImageField label="Image Open Graph" value={content.seo.contactOgImage} fieldKey="seo.contactOgImage" />
+              <TextField label="Titre Meta" value={content.seo.contactTitle} fieldKey="seo.contactTitle" onChange={updateContentField} />
+              <TextField label="Description Meta" value={content.seo.contactDescription} fieldKey="seo.contactDescription" rows={3} onChange={updateContentField} />
+              <ImageField label="Image Open Graph" value={content.seo.contactOgImage} fieldKey="seo.contactOgImage" onChange={updateContentField} onUpload={setCurrentUploadField} />
             </div>
           </div>
         )}
