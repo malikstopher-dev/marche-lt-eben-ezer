@@ -46,17 +46,6 @@ export default function ProductClient({ id }: Props) {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="flex items-center justify-center pt-32">
-          <div className="text-teal-700 font-medium">Chargement...</div>
-        </div>
-      </div>
-    );
-  }
-
   useEffect(() => {
     async function loadProduct() {
       try {
@@ -76,6 +65,17 @@ export default function ProductClient({ id }: Props) {
     }
     loadProduct();
   }, [id, params.id]);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center pt-32">
+          <div className="text-teal-700 font-medium">Chargement...</div>
+        </div>
+      </div>
+    );
+  }
 
   const isPromoActive = () => {
     if (!product?.onPromo) return false;
