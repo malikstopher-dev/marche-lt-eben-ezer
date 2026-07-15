@@ -27,7 +27,7 @@ export interface Product {
   outOfStock?: boolean;
 }
 
-const STORAGE_KEY = "admin_products_v2";
+const STORAGE_KEY = "admin_products_v3";
 
 export async function getProducts(): Promise<Product[]> {
   if (typeof window === "undefined") return [];
