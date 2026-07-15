@@ -229,7 +229,7 @@ function ShopContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-2">
-            Notre <span className="text-[#C41E3A]">Boutique</span>
+            Notre <span className="text-[#1A1A1A]">Boutique</span>
           </h1>
           <p className="text-[#6B6B6B]">
             {filteredProducts.length} produits disponibles
@@ -243,9 +243,9 @@ function ShopContent() {
               value={search} 
               onChange={(e) => setSearch(e.target.value)} 
               placeholder="Rechercher un produit..." 
-              className="w-full px-6 py-3 pl-12 bg-[#F5F2ED] border-0 rounded-full text-[#1A1A1A] placeholder-[#A3A3A3] focus:ring-2 focus:ring-[#C41E3A]" 
+              className="w-full px-6 py-3 pl-12 bg-[#F5F2ED] border-0 rounded-full text-[#1A1A1A] placeholder-[#6B6B6B] focus:ring-2 focus:ring-[#1A1A1A] focus:outline-none text-sm" 
             />
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#A3A3A3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6B6B6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>

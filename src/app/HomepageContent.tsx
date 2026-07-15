@@ -239,30 +239,29 @@ export default function HomepageContent() {
       )}
       
       {/* PREMIUM HERO SLIDER */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center overflow-hidden bg-[#19212b]">
+      <section className="relative h-[70vh] min-h-[520px] flex items-end overflow-hidden bg-[#19212b]">
         <div className="absolute inset-0">
           {heroBanners.map((banner, index) => (
             <div
               key={index}
               className={`absolute inset-0 transition-all duration-1000 ease-out ${
-                index === currentSlide ? "opacity-100 scale-105" : "opacity-0 scale-100"
+                index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
               }`}
             >
               <img src={banner.src} alt={banner.alt} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#19212b] via-[#19212b]/50 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#19212b]/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
             </div>
           ))}
         </div>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
           {heroBanners.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`h-1 rounded-full transition-all duration-500 ${
-                index === currentSlide ? "bg-white w-12" : "bg-white/30 w-8 hover:bg-white/50"
+                index === currentSlide ? "bg-white w-10" : "bg-white/40 w-6 hover:bg-white/60"
               }`}
             />
           ))}
@@ -271,70 +270,63 @@ export default function HomepageContent() {
         {/* Arrow Navigation */}
         <button
           onClick={() => setCurrentSlide((currentSlide - 1 + heroBanners.length) % heroBanners.length)}
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all hover:scale-110"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center transition-all"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         <button
           onClick={() => setCurrentSlide((currentSlide + 1) % heroBanners.length)}
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all hover:scale-110"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center transition-all"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
-          <div className="max-w-2xl pt-24">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="px-5 py-2 bg-[#ec7205] text-white text-sm font-semibold rounded-full shadow-lg backdrop-blur-sm">
-                🛒 Votre Épicerie Africaine à Montréal
-              </span>
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-              {heroTitle.split(' ').map((word, i) => (
-                <span key={i}>{word}{i === 0 ? ' ' : ' '}</span>
-              ))}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pb-16">
+          <div className="max-w-2xl">
+            <span className="inline-block px-4 py-1.5 bg-[#ec7205] text-white text-xs font-semibold rounded-full mb-4">
+              Votre Épicerie Africaine à Montréal
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4">
+              {heroTitle}
             </h1>
-
-            <p className="mt-6 text-xl text-white/80 max-w-lg">
+            <p className="text-lg text-white/80 max-w-lg mb-8">
               {welcomeMessage}
             </p>
-
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={ctaLink}
-                className="px-10 py-4 bg-[#47b6b1] text-white font-bold rounded-full hover:bg-[#39918d] transition-all hover:shadow-lg hover:scale-105 text-center"
+                className="px-8 py-3.5 bg-white text-[#1A1A1A] font-semibold rounded-full hover:bg-gray-100 transition-all text-center text-sm"
               >
                 {ctaText}
               </Link>
               <Link
                 href="/promotions"
-                className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-full border border-white/20 hover:bg-white/20 transition-all hover:scale-105 flex items-center justify-center gap-2"
+                className="px-8 py-3.5 bg-white/15 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/25 transition-all text-center text-sm"
               >
-                <span>🔥</span> Promotions
+                Voir les promotions
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TRUST FEATURES BAR - Matching site design */}
-      <section className="bg-[#19212b] py-6 border-b border-white/5">
+      {/* TRUST FEATURES BAR */}
+      <section className="bg-[#1A1A1A] py-5 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {features.map((item, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#ec7205]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">{item.icon}</span>
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-lg">{item.icon}</span>
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">{item.title}</h3>
-                  <p className="text-white/50 text-xs">{item.description}</p>
+                  <p className="text-white/60 text-xs">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -342,15 +334,15 @@ export default function HomepageContent() {
         </div>
       </section>
 
-      {/* PROMOTIONS SECTION - Using same container/padding as inner pages */}
-      <section className="py-12 bg-[#f5f7fa]">
+      {/* PROMOTIONS SECTION */}
+      <section className="py-16 bg-[#f8f8f8]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <span className="text-[#ec7205] font-bold text-sm">🔥 OFFRES SPÉCIALES</span>
-              <h2 className="text-3xl font-bold text-[#19212b] mt-1">Promotions en cours</h2>
+              <span className="text-[#ec7205] font-bold text-xs uppercase tracking-wider">Offres spéciales</span>
+              <h2 className="text-3xl font-bold text-[#1A1A1A] mt-1">Promotions en cours</h2>
             </div>
-            <Link href="/promotions" className="text-[#47b6b1] font-semibold hover:underline text-sm">
+            <Link href="/promotions" className="text-[#1A1A1A] font-medium hover:underline text-sm">
               Voir tout →
             </Link>
           </div>
@@ -358,10 +350,10 @@ export default function HomepageContent() {
           {loading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="bg-white rounded-xl p-4 animate-pulse">
-                  <div className="aspect-square bg-gray-200 rounded-lg mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div key={i} className="bg-white rounded-2xl p-4 animate-pulse">
+                  <div className="aspect-square bg-gray-100 rounded-xl mb-4"></div>
+                  <div className="h-4 bg-gray-100 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -373,30 +365,30 @@ export default function HomepageContent() {
                   <Link
                     key={product.id}
                     href={`/product/${product.id}`}
-                    className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all"
+                    className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-md transition-all"
                   >
-                    <div className="relative aspect-square bg-gray-100">
+                    <div className="relative aspect-square bg-gray-50">
                       {product.promoLabel && (
-                        <span className="absolute top-2 left-2 z-10 px-2 py-1 bg-[#ec7205] text-white text-xs font-bold rounded-full">
+                        <span className="absolute top-3 left-3 z-10 px-2.5 py-1 bg-[#ec7205] text-white text-xs font-semibold rounded-full">
                           {product.promoLabel}
                         </span>
                       )}
                       {discount > 0 && (
-                        <span className="absolute top-2 right-2 z-10 px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
+                        <span className="absolute top-3 right-3 z-10 px-2 py-0.5 bg-[#1A1A1A] text-white text-xs font-semibold rounded">
                           -{discount}%
                         </span>
                       )}
                       <img
                         src={getProductImage(product)}
                         alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-[#19212b] line-clamp-2 text-sm">{product.name}</h3>
-                      <div className="mt-2 flex items-center gap-2">
-                        <span className="font-bold text-[#ec7205]">{product.promoPrice?.toFixed(2)}$</span>
-                        <span className="text-sm text-gray-400 line-through">{product.price.toFixed(2)}$</span>
+                      <h3 className="font-semibold text-[#1A1A1A] line-clamp-2 text-sm leading-snug">{product.name}</h3>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="font-bold text-[#ec7205] text-lg">{product.promoPrice?.toFixed(2)}$</span>
+                        <span className="text-sm text-[#6B6B6B] line-through">{product.price.toFixed(2)}$</span>
                       </div>
                     </div>
                   </Link>
@@ -404,40 +396,34 @@ export default function HomepageContent() {
               })}
             </div>
           ) : (
-            <p className="text-center text-gray-500 py-8">Aucune promotion active</p>
+            <p className="text-center text-[#6B6B6B] py-12">Aucune promotion active</p>
           )}
         </div>
       </section>
 
-      {/* CATEGORIES SECTION - Using same styling as inner pages */}
-      <section className="py-12 bg-white">
+      {/* CATEGORIES SECTION */}
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-[#19212b]">Nos Départements</h2>
-              <p className="text-gray-500 mt-1">Parcourez toutes nos catégories</p>
-            </div>
-            <Link href="/shop" className="text-[#47b6b1] font-semibold hover:underline text-sm">
-              Voir tout →
-            </Link>
+          <div className="mb-10">
+            <h2 className="text-3xl font-bold text-[#1A1A1A]">Nos Départements</h2>
+            <p className="text-[#6B6B6B] mt-1">Parcourez toutes nos catégories</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
             {departments.map((dept) => (
               <Link
                 key={dept.id}
                 href={`/shop/${dept.slug}`}
-                className="group relative aspect-square rounded-xl overflow-hidden"
+                className="group relative aspect-[3/4] rounded-2xl overflow-hidden"
               >
                 <img
                   src={dept.image}
                   alt={dept.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <span className="text-3xl block mb-1">{dept.icon}</span>
-                  <h3 className="text-white font-bold">{dept.name}</h3>
+                  <h3 className="text-white font-semibold text-sm">{dept.name}</h3>
                 </div>
               </Link>
             ))}
@@ -446,23 +432,22 @@ export default function HomepageContent() {
       </section>
 
       {/* ABOUT SECTION */}
-      <section className="py-12 bg-[#47b6b1]">
+      <section className="py-20 bg-[#1A1A1A]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="text-white/70 font-semibold text-sm">À Propos</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">
-                Votre épicererie africaine<br />de confiance à Montréal
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Votre épicerie africaine de confiance à Montréal
               </h2>
-              <p className="text-white/80 mb-6 leading-relaxed">
+              <p className="text-white/70 mb-8 leading-relaxed">
                 Marché LT Eben-Ezer propose des produits africains et internationaux authentiques.
                 Commandez via WhatsApp et venez chercher ou faites-vous livrer.
               </p>
-              <div className="flex gap-4">
-                <Link href="/about" className="px-6 py-2.5 bg-white text-[#47b6b1] font-semibold rounded-full hover:bg-gray-100 transition-colors text-sm">
+              <div className="flex gap-3">
+                <Link href="/about" className="px-6 py-3 bg-white text-[#1A1A1A] font-medium rounded-full hover:bg-gray-100 transition-colors text-sm">
                   En savoir plus
                 </Link>
-                <Link href="/contact" className="px-6 py-2.5 bg-white/10 text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-colors text-sm">
+                <Link href="/contact" className="px-6 py-3 bg-white/10 text-white font-medium rounded-full border border-white/20 hover:bg-white/20 transition-colors text-sm">
                   Nous contacter
                 </Link>
               </div>
@@ -472,25 +457,20 @@ export default function HomepageContent() {
       </section>
 
       {/* FEATURED PRODUCTS */}
-      <section className="py-12 bg-[#f5f7fa]">
+      <section className="py-16 bg-[#f8f8f8]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-[#19212b]">Produits Populaires</h2>
-              <p className="text-gray-500 mt-1">Les pluscommandés par nos clients</p>
-            </div>
-            <Link href="/shop" className="text-[#47b6b1] font-semibold hover:underline text-sm">
-              Voir tout →
-            </Link>
+          <div className="mb-10">
+            <h2 className="text-3xl font-bold text-[#1A1A1A]">Produits Populaires</h2>
+            <p className="text-[#6B6B6B] mt-1">Les plus commandés par nos clients</p>
           </div>
 
           {loading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="bg-white rounded-xl p-4 animate-pulse">
-                  <div className="aspect-square bg-gray-200 rounded-lg mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div key={i} className="bg-white rounded-2xl p-4 animate-pulse">
+                  <div className="aspect-square bg-gray-100 rounded-xl mb-4"></div>
+                  <div className="h-4 bg-gray-100 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -500,31 +480,31 @@ export default function HomepageContent() {
                 <Link
                   key={product.id}
                   href={`/product/${product.id}`}
-                  className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all"
+                  className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-md transition-all"
                 >
-                  <div className="relative aspect-square bg-gray-100">
+                  <div className="relative aspect-square bg-gray-50">
                     {product.onPromo && product.promoLabel && (
-                      <span className="absolute top-2 left-2 z-10 px-2 py-1 bg-[#ec7205] text-white text-xs font-bold rounded-full">
+                      <span className="absolute top-3 left-3 z-10 px-2.5 py-1 bg-[#ec7205] text-white text-xs font-semibold rounded-full">
                         {product.promoLabel}
                       </span>
                     )}
                     <img
                       src={getProductImage(product)}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-semibold text-[#19212b] line-clamp-2 text-sm">{product.name}</h3>
-                    {product.size_pack && <p className="text-xs text-gray-500 mt-1">{product.size_pack}</p>}
-                    <div className="mt-2">
+                    <h3 className="font-semibold text-[#1A1A1A] line-clamp-2 text-sm leading-snug">{product.name}</h3>
+                    {product.size_pack && <p className="text-xs text-[#6B6B6B] mt-1">{product.size_pack}</p>}
+                    <div className="mt-3">
                       {product.onPromo && product.promoPrice ? (
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-[#ec7205]">{product.promoPrice.toFixed(2)}$</span>
-                          <span className="text-sm text-gray-400 line-through">{product.price.toFixed(2)}$</span>
+                          <span className="font-bold text-[#ec7205] text-lg">{product.promoPrice.toFixed(2)}$</span>
+                          <span className="text-sm text-[#6B6B6B] line-through">{product.price.toFixed(2)}$</span>
                         </div>
                       ) : (
-                        <span className="font-bold text-[#47b6b1]">{product.price.toFixed(2)}$</span>
+                        <span className="font-bold text-[#1A1A1A] text-lg">{product.price.toFixed(2)}$</span>
                       )}
                     </div>
                   </div>
@@ -536,24 +516,24 @@ export default function HomepageContent() {
       </section>
 
       {/* WHATSAPP CTA */}
-      <section className="py-12 bg-[#19212b]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+      <section className="py-20 bg-white">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-3">
             Prêt à commander ?
           </h2>
-          <p className="text-white/70 mb-8">
-            Commandez via WhatsApp - simple, rapide et pratique !
+          <p className="text-[#6B6B6B] mb-8">
+            Commandez via WhatsApp — simple, rapide et pratique.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={handleWhatsAppClick}
-              className="px-8 py-3 bg-[#25D366] text-white font-semibold rounded-full hover:bg-[#20BD5A] transition-colors"
+              className="px-8 py-3.5 bg-[#25D366] text-white font-semibold rounded-full hover:bg-[#20BD5A] transition-colors text-sm"
             >
               Commander sur WhatsApp
             </button>
             <Link
               href="/shop"
-              className="px-8 py-3 bg-white text-[#19212b] font-semibold rounded-full hover:bg-gray-100 transition-colors"
+              className="px-8 py-3.5 bg-[#1A1A1A] text-white font-semibold rounded-full hover:bg-black transition-colors text-sm"
             >
               Parcourir la boutique
             </Link>
