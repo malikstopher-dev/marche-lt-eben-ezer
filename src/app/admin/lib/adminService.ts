@@ -176,14 +176,16 @@ const defaultSettings: StoreSettings = {
     instagram: "https://instagram.com/marchelt",
   },
   departmentImages: {
-    "epicerie": "/product_images/food/001-farine-de-manioc-kinazi-1kg.jpg",
-    "surgeles": "/product_images/frozen-fish/090-raw-shrimp-16-20.jpg",
-    "boissons": "/product_images/drinks/001-jus-de-bissap-hibiscus-1l.jpg",
-    "legumes": "/product_images/fresh-vegetables/217-pondu.jpg",
-    "snacks": "/product_images/snacks/205-v-c-dig-thins-wild-fruits.jpg",
-    "cosmetiques": "/product_images/cosmetics/222-ever-sheen-cocoa-butter-hand-and-body-lotion.jpg",
-    "condiments": "/product_images/spices/120-hot-paprika.jpg",
-    "maison": "/product_images/household/211-old-dutch-bleach.jpg",
+    "epicerie": "/product_images/new-products/farine-de-manioc-kinazi-1kg.webp",
+    "surgeles": "/product_images/new-products/ferma-red-fish-whole.webp",
+    "boissons": "/product_images/new-products/compal-mango-nectar.webp",
+    "legumes": "/product_images/new-products/221-ngai-ngai.webp",
+    "conserves": "/product_images/new-products/sardine-anny-vegetable-oil-125g.webp",
+    "snacks": "/product_images/new-products/gorila-gum-tutti.webp",
+    "condiments": "/product_images/new-products/120-hot-paprika.webp",
+    "cosmetiques": "/product_images/new-products/222-ever-sheen-cocoa-butter-hand-and-body-lotion.webp",
+    "maison": "/product_images/new-products/211-old-dutch-bleach.webp",
+    "medical": "/product_images/new-products/244-funbact-a-triple-action-cream.webp",
   },
   heroBanners: [
     "/hero_banners/hero1.jpg",
@@ -284,8 +286,8 @@ const STORAGE_KEYS = {
   categories: "admin_categories",
   promotions: "admin_promotions",
   orders: "admin_orders",
-  settings: "admin_settings",
-  siteContent: "admin_site_content",
+  settings: "admin_settings_v2",
+  siteContent: "admin_site_content_v2",
 };
 
 class AdminService {
