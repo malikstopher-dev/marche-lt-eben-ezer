@@ -97,7 +97,26 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-[#6c7a89] text-sm">{siteName}</p>
             <p className="text-[#6c7a89] text-sm">
-              Website by <a href="https://stopher-malik.co.za" target="_blank" rel="noopener noreferrer" className="text-[#47b6b1] hover:text-white transition-colors">Stopher Malik</a>
+              Website by{" "}
+              <a
+                href="https://stopher-malik.co.za"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#47b6b1] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#47b6b1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#19212b] rounded"
+                aria-label="Stopher Malik - visit portfolio website"
+              >
+                Stopher Malik
+              </a>
+              {" "}&{" "}
+              <a
+                href="https://smk.stopher-malik.co.za"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#47b6b1] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#47b6b1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#19212b] rounded"
+                aria-label="SMK Web Design - visit agency website"
+              >
+                SMK Web Design
+              </a>
             </p>
           </div>
         </div>

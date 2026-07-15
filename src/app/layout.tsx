@@ -10,8 +10,11 @@ export const metadata: Metadata = {
   },
   description: "Votre épicière africaine de confiance à Montréal. Produits congolais, africains et internationaux de qualité. Farine de manioc, épices, surgelés, boissons et plus. Commandez via WhatsApp.",
   keywords: ["épicerie africaine Montréal", "produits congolais", "marché africain Québec", "farine de manioc", "épices africaines", "surgelés africains", "boissons africaines", "cosmétiques africains"],
-  authors: [{ name: "Marché LT Eben-Ezer" }],
+  authors: [{ name: "Stopher Malik" }],
   creator: "Stopher Malik",
+  other: {
+    designer: "SMK Web Design",
+  },
   openGraph: {
     type: "website",
     locale: "fr_CA",
@@ -66,6 +69,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <Providers>{children}</Providers>
+        {/* Developed by Stopher Malik - https://stopher-malik.co.za */}
       </body>
     </html>
   );

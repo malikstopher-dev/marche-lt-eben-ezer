@@ -44,11 +44,34 @@ const structuredData = {
   }
 };
 
+const websiteStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Marché LT Eben-Ezer",
+  "url": "https://marchelt.com",
+  "creator": {
+    "@type": "Person",
+    "name": "Stopher Malik",
+    "url": "https://stopher-malik.co.za"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "name": "SMK Web Design",
+    "url": "https://smk.stopher-malik.co.za"
+  }
+};
+
 export default function SeoScript() {
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
+      />
+    </>
   );
 }
