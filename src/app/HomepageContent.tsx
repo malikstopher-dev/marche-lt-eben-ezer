@@ -39,16 +39,16 @@ const defaultHeroBanners = [
 ];
 
 const defaultDepartments = [
-  { id: "Pantry Staples", name: "Épicerie", icon: "🫘", slug: "epicerie", image: "/product_images/food/001-farine-de-manioc-kinazi-1kg.jpg" },
-  { id: "Frozen Foods", name: "Surgelés", icon: "🐟", slug: "surgeles", image: "/product_images/frozen-fish/090-raw-shrimp-16-20.jpg" },
-  { id: "Beverages", name: "Boissons", icon: "🥤", slug: "boissons", image: "/product_images/drinks/001-jus-de-bissap-hibiscus-1l.jpg" },
-  { id: "Produce & Greens", name: "Légumes", icon: "🥬", slug: "legumes", image: "/product_images/fresh-vegetables/217-pondu.jpg" },
-  { id: "Canned Goods", name: "Conserves", icon: "🥫", slug: "conserves", image: "/product_images/canned-food/065-sardine-anny-vegetable-oil-125g.jpg" },
-  { id: "Snacks", name: "Snacks", icon: "🍿", slug: "snacks", image: "/product_images/snacks/205-v-c-dig-thins-wild-fruits.jpg" },
-  { id: "Condiments", name: "Condiments", icon: "🌶️", slug: "condiments", image: "/product_images/spices/120-hot-paprika.jpg" },
-  { id: "Cosmetics", name: "Cosmétiques", icon: "🧴", slug: "cosmetiques", image: "/product_images/cosmetics/222-ever-sheen-cocoa-butter-hand-and-body-lotion.jpg" },
-  { id: "Household", name: "Entretien", icon: "🧹", slug: "maison", image: "/product_images/household/211-old-dutch-bleach.jpg" },
-  { id: "Medical", name: "Médical", icon: "💊", slug: "medical", image: "/product_images/medical/241-protection-baume-de-nerfs-80ml.jpg" },
+  { id: "Pantry Staples", name: "Épicerie", icon: "🫘", slug: "epicerie", image: "/product_images/new-products/farine-de-manioc-kinazi-1kg.webp" },
+  { id: "Frozen Foods", name: "Surgelés", icon: "🐟", slug: "surgeles", image: "/product_images/new-products/ferma-red-fish-whole.webp" },
+  { id: "Beverages", name: "Boissons", icon: "🥤", slug: "boissons", image: "/product_images/new-products/compal-mango-nectar.webp" },
+  { id: "Produce & Greens", name: "Légumes", icon: "🥬", slug: "legumes", image: "/product_images/new-products/221-ngai-ngai.webp" },
+  { id: "Canned Goods", name: "Conserves", icon: "🥫", slug: "conserves", image: "/product_images/new-products/sardine-anny-vegetable-oil-125g.webp" },
+  { id: "Snacks", name: "Snacks", icon: "🍿", slug: "snacks", image: "/product_images/new-products/gorila-gum-tutti.webp" },
+  { id: "Condiments", name: "Condiments", icon: "🌶️", slug: "condiments", image: "/product_images/new-products/120-hot-paprika.webp" },
+  { id: "Cosmetics", name: "Cosmétiques", icon: "🧴", slug: "cosmetiques", image: "/product_images/new-products/222-ever-sheen-cocoa-butter-hand-and-body-lotion.webp" },
+  { id: "Household", name: "Entretien", icon: "🧹", slug: "maison", image: "/product_images/new-products/211-old-dutch-bleach.webp" },
+  { id: "Medical", name: "Médical", icon: "💊", slug: "medical", image: "/product_images/new-products/244-funbact-a-triple-action-cream.webp" },
 ];
 
 const defaultTrustFeatures = [
