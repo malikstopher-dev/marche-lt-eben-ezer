@@ -9,14 +9,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const departments = [
-  { id: "Pantry Staples", name: "Épicerie Africaine", icon: "🫘", slug: "epicerie" },
-  { id: "Frozen Foods", name: "Poissons & Surgelés", icon: "🐟", slug: "surgeles" },
+  { id: "Pantry Staples", name: "Épicerie", icon: "🫘", slug: "epicerie" },
+  { id: "Frozen Foods", name: "Surgelés", icon: "🐟", slug: "surgeles" },
   { id: "Beverages", name: "Boissons", icon: "🥤", slug: "boissons" },
   { id: "Produce & Greens", name: "Légumes & Feuilles", icon: "🥬", slug: "legumes" },
   { id: "Snacks", name: "Snacks", icon: "🍿", slug: "snacks" },
-  { id: "Cosmetics", name: "Cosmétiques", icon: "🧴", slug: "cosmetiques" },
+  { id: "Canned Goods", name: "Conserves", icon: "🥫", slug: "conserves" },
   { id: "Condiments", name: "Condiments", icon: "🌶️", slug: "condiments" },
-  { id: "Maison", name: "Maison", icon: "🧹", slug: "maison" },
+  { id: "Cosmetics", name: "Cosmétiques", icon: "🧴", slug: "cosmetiques" },
+  { id: "Household", name: "Entretien", icon: "🧹", slug: "maison" },
+  { id: "Medical", name: "Médical", icon: "💊", slug: "medical" },
 ];
 
 function ShopContent() {

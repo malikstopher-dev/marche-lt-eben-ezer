@@ -10,10 +10,12 @@ const departmentSlugs: Record<string, string> = {
   "Frozen Foods": "surgeles",
   "Beverages": "boissons",
   "Produce & Greens": "legumes",
+  "Canned Goods": "conserves",
   "Snacks": "snacks",
-  "Cosmetics": "cosmetiques",
   "Condiments": "condiments",
-  "Maison": "maison",
+  "Cosmetics": "cosmetiques",
+  "Household": "maison",
+  "Medical": "medical",
 };
 
 const slugToDepartment: Record<string, string> = Object.fromEntries(

@@ -9,10 +9,12 @@ const departments = [
   { id: "Frozen Foods", name: "Surgelés", slug: "surgeles" },
   { id: "Beverages", name: "Boissons", slug: "boissons" },
   { id: "Produce & Greens", name: "Légumes", slug: "legumes" },
+  { id: "Canned Goods", name: "Conserves", slug: "conserves" },
   { id: "Snacks", name: "Snacks", slug: "snacks" },
-  { id: "Cosmetics", name: "Cosmétiques", slug: "cosmetiques" },
   { id: "Condiments", name: "Condiments", slug: "condiments" },
-  { id: "Maison", name: "Maison", slug: "maison" },
+  { id: "Cosmetics", name: "Cosmétiques", slug: "cosmetiques" },
+  { id: "Household", name: "Maison", slug: "maison" },
+  { id: "Medical", name: "Médical", slug: "medical" },
 ];
 
 const navItems = [
