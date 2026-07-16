@@ -98,7 +98,7 @@ export default function Header() {
             </div>
             <div className="hidden sm:block">
               <span className="text-white font-bold text-base leading-tight">Marché LT</span>
-              <span className="block text-[#47b6b1] text-xs font-semibold">Eben-Ezer</span>
+              <span className="block text-white/60 text-xs font-semibold">Eben-Ezer</span>
             </div>
           </Link>
 
