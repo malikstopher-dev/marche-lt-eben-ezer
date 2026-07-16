@@ -76,14 +76,14 @@ export default function Header() {
   }
 
   return (
-    <header className={`bg-[#1A1A1A]`}>
+    <header className="bg-[#19212b]">
       {/* Top Bar */}
-      <div className="bg-black/30 text-white/70 py-1.5">
+      <div className="bg-[#47b6b1] text-white py-1.5">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center text-xs">
           <span>4821 Boul Henri-Bourassa Est, Montréal</span>
           <div className="hidden sm:flex items-center gap-4">
             <span>Lun-Ven: 9h–21h | Sam: 9h–22h | Dim: Fermé</span>
-            <a href="tel:+15144670229" className="hover:text-white transition-colors">+1 (514) 467-0229</a>
+            <a href="tel:+15144670229" className="hover:underline transition-colors">+1 (514) 467-0229</a>
           </div>
         </div>
       </div>
@@ -98,14 +98,14 @@ export default function Header() {
             </div>
             <div className="hidden sm:block">
               <span className="text-white font-bold text-base leading-tight">Marché LT</span>
-              <span className="block text-white/50 text-xs font-medium">Eben-Ezer</span>
+              <span className="block text-[#47b6b1] text-xs font-semibold">Eben-Ezer</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-0.5">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium transition-colors">
+              <Link key={item.href} href={item.href} className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium transition-colors">
                 {item.label}
               </Link>
             ))}
@@ -113,7 +113,7 @@ export default function Header() {
             <div className="relative" ref={departementsRef}>
               <button 
                 onClick={() => setIsDepartementsOpen(!isDepartementsOpen)}
-                className="flex items-center gap-1 px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium transition-colors"
+                className="flex items-center gap-1 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium transition-colors"
               >
                 Départements
                 <svg className={`w-4 h-4 transition-transform ${isDepartementsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +127,7 @@ export default function Header() {
                       key={dept.id} 
                       href={`/shop/${dept.slug}`}
                       onClick={() => setIsDepartementsOpen(false)}
-                      className="block px-4 py-2.5 text-[#1A1A1A] hover:bg-gray-50 text-sm transition-colors"
+                      className="block px-4 py-2.5 text-[#19212b] hover:bg-gray-50 text-sm transition-colors"
                     >
                       {dept.name}
                     </Link>
@@ -150,7 +150,7 @@ export default function Header() {
           {/* Right Actions */}
           <div className="flex items-center gap-1">
             {/* Mobile Search Toggle */}
-            <button onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)} className="md:hidden p-2 text-white/70 hover:text-white">
+            <button onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)} className="md:hidden p-2 text-white/80 hover:text-white">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -162,7 +162,7 @@ export default function Header() {
             </Link>
 
             {/* Cart */}
-            <Link href="/cart" className="relative p-2 text-white/70 hover:text-white transition-colors">
+            <Link href="/cart" className="relative p-2 text-white/80 hover:text-white transition-colors">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
@@ -174,7 +174,7 @@ export default function Header() {
             </Link>
 
             {/* Mobile Menu Toggle */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white/70 hover:text-white">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-white/80 hover:text-white">
               {isMenuOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -200,14 +200,14 @@ export default function Header() {
           <nav className="lg:hidden py-4 border-t border-white/10">
             <div className="flex flex-col gap-1">
               {navItems.map((item) => (
-                <Link key={item.href} onClick={() => setIsMenuOpen(false)} href={item.href} className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium">
+                <Link key={item.href} onClick={() => setIsMenuOpen(false)} href={item.href} className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-sm font-medium">
                   {item.label}
                 </Link>
               ))}
               <div className="border-t border-white/10 my-2"></div>
-              <span className="px-3 py-2 text-white/30 text-xs font-medium uppercase tracking-wider">Départements</span>
+              <span className="px-3 py-2 text-white/40 text-xs font-medium uppercase tracking-wider">Départements</span>
               {departments.map((dept) => (
-                <Link key={dept.id} onClick={() => setIsMenuOpen(false)} href={`/shop/${dept.slug}`} className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg text-sm">
+                <Link key={dept.id} onClick={() => setIsMenuOpen(false)} href={`/shop/${dept.slug}`} className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-sm">
                   {dept.name}
                 </Link>
               ))}

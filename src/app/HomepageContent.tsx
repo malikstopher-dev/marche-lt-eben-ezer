@@ -300,7 +300,7 @@ export default function HomepageContent() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={ctaLink}
-                className="px-8 py-3.5 bg-white text-[#1A1A1A] font-semibold rounded-full hover:bg-gray-100 transition-all text-center text-sm"
+                className="px-8 py-3.5 bg-white text-[#19212b] font-semibold rounded-full hover:bg-gray-100 transition-all text-center text-sm"
               >
                 {ctaText}
               </Link>
@@ -316,7 +316,7 @@ export default function HomepageContent() {
       </section>
 
       {/* TRUST FEATURES BAR */}
-      <section className="bg-[#1A1A1A] py-5 border-b border-white/5">
+      <section className="bg-[#19212b] py-5 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {features.map((item, index) => (
@@ -340,9 +340,9 @@ export default function HomepageContent() {
           <div className="flex items-end justify-between mb-8">
             <div>
               <span className="text-[#ec7205] font-bold text-xs uppercase tracking-wider">Offres spéciales</span>
-              <h2 className="text-3xl font-bold text-[#1A1A1A] mt-1">Promotions en cours</h2>
+              <h2 className="text-3xl font-bold text-[#19212b] mt-1">Promotions en cours</h2>
             </div>
-            <Link href="/promotions" className="text-[#1A1A1A] font-medium hover:underline text-sm">
+            <Link href="/promotions" className="text-[#19212b] font-medium hover:underline text-sm">
               Voir tout →
             </Link>
           </div>
@@ -374,7 +374,7 @@ export default function HomepageContent() {
                         </span>
                       )}
                       {discount > 0 && (
-                        <span className="absolute top-3 right-3 z-10 px-2 py-0.5 bg-[#1A1A1A] text-white text-xs font-semibold rounded">
+                        <span className="absolute top-3 right-3 z-10 px-2 py-0.5 bg-[#19212b] text-white text-xs font-semibold rounded">
                           -{discount}%
                         </span>
                       )}
@@ -385,7 +385,7 @@ export default function HomepageContent() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-[#1A1A1A] line-clamp-2 text-sm leading-snug">{product.name}</h3>
+                      <h3 className="font-semibold text-[#19212b] line-clamp-2 text-sm leading-snug">{product.name}</h3>
                       <div className="mt-3 flex items-center gap-2">
                         <span className="font-bold text-[#ec7205] text-lg">{product.promoPrice?.toFixed(2)}$</span>
                         <span className="text-sm text-[#6B6B6B] line-through">{product.price.toFixed(2)}$</span>
@@ -405,7 +405,7 @@ export default function HomepageContent() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-10">
-            <h2 className="text-3xl font-bold text-[#1A1A1A]">Nos Départements</h2>
+            <h2 className="text-3xl font-bold text-[#19212b]">Nos Départements</h2>
             <p className="text-[#6B6B6B] mt-1">Parcourez toutes nos catégories</p>
           </div>
 
@@ -432,22 +432,22 @@ export default function HomepageContent() {
       </section>
 
       {/* ABOUT SECTION */}
-      <section className="py-20 bg-[#1A1A1A]">
+      <section className="py-20 bg-[#47b6b1]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Votre épicerie africaine de confiance à Montréal
               </h2>
-              <p className="text-white/70 mb-8 leading-relaxed">
+              <p className="text-white/80 mb-8 leading-relaxed">
                 Marché LT Eben-Ezer propose des produits africains et internationaux authentiques.
                 Commandez via WhatsApp et venez chercher ou faites-vous livrer.
               </p>
               <div className="flex gap-3">
-                <Link href="/about" className="px-6 py-3 bg-white text-[#1A1A1A] font-medium rounded-full hover:bg-gray-100 transition-colors text-sm">
+                <Link href="/about" className="px-6 py-3 bg-white text-[#47b6b1] font-medium rounded-full hover:bg-gray-100 transition-colors text-sm">
                   En savoir plus
                 </Link>
-                <Link href="/contact" className="px-6 py-3 bg-white/10 text-white font-medium rounded-full border border-white/20 hover:bg-white/20 transition-colors text-sm">
+                <Link href="/contact" className="px-6 py-3 bg-white/15 text-white font-medium rounded-full border border-white/20 hover:bg-white/25 transition-colors text-sm">
                   Nous contacter
                 </Link>
               </div>
@@ -460,7 +460,7 @@ export default function HomepageContent() {
       <section className="py-16 bg-[#f8f8f8]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-10">
-            <h2 className="text-3xl font-bold text-[#1A1A1A]">Produits Populaires</h2>
+            <h2 className="text-3xl font-bold text-[#19212b]">Produits Populaires</h2>
             <p className="text-[#6B6B6B] mt-1">Les plus commandés par nos clients</p>
           </div>
 
@@ -495,7 +495,7 @@ export default function HomepageContent() {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-semibold text-[#1A1A1A] line-clamp-2 text-sm leading-snug">{product.name}</h3>
+                    <h3 className="font-semibold text-[#19212b] line-clamp-2 text-sm leading-snug">{product.name}</h3>
                     {product.size_pack && <p className="text-xs text-[#6B6B6B] mt-1">{product.size_pack}</p>}
                     <div className="mt-3">
                       {product.onPromo && product.promoPrice ? (
@@ -504,7 +504,7 @@ export default function HomepageContent() {
                           <span className="text-sm text-[#6B6B6B] line-through">{product.price.toFixed(2)}$</span>
                         </div>
                       ) : (
-                        <span className="font-bold text-[#1A1A1A] text-lg">{product.price.toFixed(2)}$</span>
+                        <span className="font-bold text-[#19212b] text-lg">{product.price.toFixed(2)}$</span>
                       )}
                     </div>
                   </div>
@@ -518,7 +518,7 @@ export default function HomepageContent() {
       {/* WHATSAPP CTA */}
       <section className="py-20 bg-white">
         <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#19212b] mb-3">
             Prêt à commander ?
           </h2>
           <p className="text-[#6B6B6B] mb-8">
@@ -533,7 +533,7 @@ export default function HomepageContent() {
             </button>
             <Link
               href="/shop"
-              className="px-8 py-3.5 bg-[#1A1A1A] text-white font-semibold rounded-full hover:bg-black transition-colors text-sm"
+              className="px-8 py-3.5 bg-[#19212b] text-white font-semibold rounded-full hover:bg-black transition-colors text-sm"
             >
               Parcourir la boutique
             </Link>

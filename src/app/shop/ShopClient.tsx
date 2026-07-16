@@ -229,7 +229,7 @@ function ShopContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-2">
-            Notre <span className="text-[#1A1A1A]">Boutique</span>
+            Notre <span className="text-[#C41E3A]">Boutique</span>
           </h1>
           <p className="text-[#6B6B6B]">
             {filteredProducts.length} produits disponibles
