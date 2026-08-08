@@ -207,35 +207,7 @@ export default function ProductClient({ id }: Props) {
               
               {/* Pricing */}
               <div className="mb-8">
-                {promoActive && product.promoPrice ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-4">
-                      <span className="text-4xl font-bold text-red-600">
-                        ${product.promoPrice.toFixed(2)}
-                      </span>
-                      <span className="text-xl text-gray-400 line-through">
-                        ${product.price.toFixed(2)}
-                      </span>
-                      {discount > 0 && (
-                        <span className="px-3 py-1 bg-red-100 text-red-700 text-sm font-semibold rounded-lg">
-                          Save {discount}%
-                        </span>
-                      )}
-                    </div>
-                    {product.promoEndDate && (
-                      <p className="text-sm text-gray-500">
-                        Limited time offer • Ends {new Date(product.promoEndDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </p>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-4xl font-bold text-gray-900">
-                    {product.price !== null && product.price > 0 
-                      ? `$${product.price.toFixed(2)}` 
-                      : <span className="text-xl text-gray-500 font-medium">Prix en magasin</span>
-                    }
-                  </p>
-                )}
+                <p className="text-xl font-medium text-gray-500">Prix en magasin</p>
               </div>
 
               {/* Stock Status */}

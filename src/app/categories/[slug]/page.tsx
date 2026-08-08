@@ -123,15 +123,8 @@ function CategoryContent() {
                 {product.size_pack && (
                   <p className="text-sm text-gray-500 mt-1">{product.size_pack}</p>
                 )}
-                <div className="mt-2 flex items-center gap-2">
-                  {product.onPromo && product.promoPrice ? (
-                    <>
-                      <span className="font-bold text-[#C41E3A]">{product.promoPrice.toFixed(2)}$</span>
-                      <span className="text-sm text-gray-400 line-through">{product.price.toFixed(2)}$</span>
-                    </>
-                  ) : (
-                    <span className="font-bold text-[#2D5A3D]">{product.price.toFixed(2)}$</span>
-                  )}
+                <div className="mt-2">
+                  <span className="text-sm text-gray-500">Prix en magasin</span>
                 </div>
               </Link>
             ))}

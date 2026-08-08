@@ -89,9 +89,8 @@ export default function HomepageContent() {
     async function loadProducts() {
       try {
         const data = await getProducts();
-        const withPrices = data.filter((p: Product) => p.price !== null && p.price > 0);
-        setProducts(withPrices.slice(0, 8));
-        const activePromos = withPrices.filter((p: Product) => isPromoActive(p));
+        setProducts(data.slice(0, 8));
+        const activePromos = data.filter((p: Product) => isPromoActive(p));
         setPromoProducts(activePromos.slice(0, 4));
         setPromoCount(activePromos.length);
         const popupShown = localStorage.getItem("promo_popup_shown");
@@ -102,9 +101,8 @@ export default function HomepageContent() {
         fetch("/products.json")
           .then((res) => res.json())
           .then((data) => {
-            const withPrices = data.filter((p: Product) => p.price !== null && p.price > 0);
-            setProducts(withPrices.slice(0, 8));
-            const activePromos = withPrices.filter((p: Product) => isPromoActive(p));
+            setProducts(data.slice(0, 8));
+            const activePromos = data.filter((p: Product) => isPromoActive(p));
             setPromoProducts(activePromos.slice(0, 4));
             setPromoCount(activePromos.length);
             const popupShown = localStorage.getItem("promo_popup_shown");
@@ -199,7 +197,6 @@ export default function HomepageContent() {
             <div className="p-4">
               <div className="grid grid-cols-2 gap-3 mb-4">
                 {promoProducts.slice(0, 4).map((product) => {
-                  const discount = product.promoPrice ? Math.round((1 - product.promoPrice / product.price) * 100) : 0;
                   return (
                     <Link 
                       key={product.id} 
@@ -215,12 +212,8 @@ export default function HomepageContent() {
                         />
                       </div>
                       <p className="text-xs font-medium text-[#19212b] line-clamp-2 mb-1">{product.name}</p>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#ec7205]">{product.promoPrice?.toFixed(2)}$</span>
-                        <span className="text-xs text-gray-400 line-through">{product.price.toFixed(2)}$</span>
-                        {discount > 0 && (
-                          <span className="text-xs font-bold text-[#47b6b1]">-{discount}%</span>
-                        )}
+                      <div>
+                        <span className="text-xs text-gray-500">Prix en magasin</span>
                       </div>
                     </Link>
                   );
@@ -360,7 +353,6 @@ export default function HomepageContent() {
           ) : promoProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {promoProducts.map((product) => {
-                const discount = product.promoPrice ? Math.round((1 - product.promoPrice / product.price) * 100) : 0;
                 return (
                   <Link
                     key={product.id}
@@ -373,11 +365,6 @@ export default function HomepageContent() {
                           {product.promoLabel}
                         </span>
                       )}
-                      {discount > 0 && (
-                        <span className="absolute top-3 right-3 z-10 px-2 py-0.5 bg-[#19212b] text-white text-xs font-semibold rounded">
-                          -{discount}%
-                        </span>
-                      )}
                       <img
                         src={getProductImage(product)}
                         alt={product.name}
@@ -386,9 +373,8 @@ export default function HomepageContent() {
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-[#19212b] line-clamp-2 text-sm leading-snug">{product.name}</h3>
-                      <div className="mt-3 flex items-center gap-2">
-                        <span className="font-bold text-[#ec7205] text-lg">{product.promoPrice?.toFixed(2)}$</span>
-                        <span className="text-sm text-[#6B6B6B] line-through">{product.price.toFixed(2)}$</span>
+                      <div className="mt-3">
+                        <span className="text-sm text-gray-500">Prix en magasin</span>
                       </div>
                     </div>
                   </Link>
@@ -498,14 +484,7 @@ export default function HomepageContent() {
                     <h3 className="font-semibold text-[#19212b] line-clamp-2 text-sm leading-snug">{product.name}</h3>
                     {product.size_pack && <p className="text-xs text-[#6B6B6B] mt-1">{product.size_pack}</p>}
                     <div className="mt-3">
-                      {product.onPromo && product.promoPrice ? (
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-[#ec7205] text-lg">{product.promoPrice.toFixed(2)}$</span>
-                          <span className="text-sm text-[#6B6B6B] line-through">{product.price.toFixed(2)}$</span>
-                        </div>
-                      ) : (
-                        <span className="font-bold text-[#19212b] text-lg">{product.price.toFixed(2)}$</span>
-                      )}
+                      <span className="text-sm text-gray-500">Prix en magasin</span>
                     </div>
                   </div>
                 </Link>

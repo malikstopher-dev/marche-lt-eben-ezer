@@ -133,20 +133,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </h3>
           
           <div className="flex items-center gap-2 mb-3">
-            {promoActive && product.promoPrice ? (
-              <>
-                <span className="text-base font-bold text-red-600">
-                  ${product.promoPrice.toFixed(2)}
-                </span>
-                <span className="text-sm text-gray-400 line-through">
-                  ${product.price.toFixed(2)}
-                </span>
-              </>
-            ) : (
-              <span className="text-base font-bold text-gray-900">
-                {product.price > 0 ? `$${product.price.toFixed(2)}` : <span className="text-sm text-gray-500">Prix en magasin</span>}
-              </span>
-            )}
+            <span className="text-sm text-gray-500">Prix en magasin</span>
           </div>
           
           <button
