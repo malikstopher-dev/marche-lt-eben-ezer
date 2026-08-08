@@ -172,8 +172,8 @@ const defaultSettings: StoreSettings = {
   delivery_threshold: 299,
   free_delivery_message: "LIVRAISON Gratuite AU QUÉBEC",
   social: {
-    facebook: "https://facebook.com/marchelt",
-    instagram: "https://instagram.com/marchelt",
+    facebook: "https://www.facebook.com/share/1TgmBPYrh7/?mibextid=wwXIfr",
+    tiktok: "https://www.tiktok.com/@laurencines.king",
   },
   departmentImages: {
     "epicerie": "/product_images/new-products/farine-de-manioc-kinazi-1kg.webp",

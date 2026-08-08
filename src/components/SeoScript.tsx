@@ -31,8 +31,8 @@ const structuredData = {
   ],
   "image": "/logo.jpg",
   "sameAs": [
-    "https://www.facebook.com/marchelt",
-    "https://www.instagram.com/marchelt"
+    "https://www.facebook.com/share/1TgmBPYrh7/?mibextid=wwXIfr",
+    "https://www.tiktok.com/@laurencines.king"
   ],
   "areaServed": {
     "@type": "State",
